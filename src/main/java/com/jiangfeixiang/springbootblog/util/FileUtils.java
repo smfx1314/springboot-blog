@@ -19,25 +19,21 @@ import java.util.UUID;
 public class FileUtils {
 
     /**
-     *
      * @param file 上传的文件
-     * @param path  文件存放路径
-     * @param fileName  源文件名称
+     * @param path  文件上传路径
      * @return
      */
-    public static boolean upload(MultipartFile file, String path, String fileName) {
+    public static boolean upload(MultipartFile file,String path) {
 
-        //随机生成新的文件名
-        String realPath = UUID.randomUUID()+path + "/" + fileName;
+        //获取原始图片的拓展名
+        String originalFilename = file.getOriginalFilename();
+        //UUID+源文件名称随机生成新的文件名
+        String newFileName = UUID.randomUUID()+ originalFilename;
         //封装上传文件位置的全路径
-        File dest = new File(realPath);
-        //判断文件父目录是否存在
-        if (!dest.getParentFile().exists()) {
-            dest.getParentFile().mkdir();
-        }
+        File targetFile  = new File(path,newFileName);
         try {
             //保存文件
-            file.transferTo(dest);
+            file.transferTo(targetFile );
             return true;
         } catch (IllegalStateException e) {
             e.printStackTrace();

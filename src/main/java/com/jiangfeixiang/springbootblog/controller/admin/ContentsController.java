@@ -1,22 +1,18 @@
 package com.jiangfeixiang.springbootblog.controller.admin;
 
 import com.jiangfeixiang.springbootblog.common.CommonReturnType;
-import com.jiangfeixiang.springbootblog.entity.ContentsDo;
-import com.jiangfeixiang.springbootblog.entity.ImagesDo;
 import com.jiangfeixiang.springbootblog.entity.UserDo;
 import com.jiangfeixiang.springbootblog.service.ContentsService;
 import com.jiangfeixiang.springbootblog.service.model.ContentsImagesModel;
 import com.jiangfeixiang.springbootblog.util.FileUtils;
-import org.springframework.beans.BeanUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
-import java.util.UUID;
 
 /**
  * @ProjectName: springboot-blog
@@ -31,6 +27,7 @@ import java.util.UUID;
 @RequestMapping("/contents")
 @CrossOrigin(allowCredentials = "true",allowedHeaders = "*")
 public class ContentsController {
+    private final static Logger logger = LoggerFactory.getLogger(ContentsController.class);
 
     @Autowired
     private ContentsService contentsService;
@@ -43,14 +40,15 @@ public class ContentsController {
     @RequestMapping(value = "/uploadImage",method = RequestMethod.POST)
     @ResponseBody
     public CommonReturnType uploadImage(@RequestParam(value="title_Url") MultipartFile file) {
-        System.out.println("shangc");
         //图片上传成功后，将图片的地址写到数据库
         //保存图片的路径
         String path = "M:\\upload";
-        if (FileUtils.upload(file, path, file.getOriginalFilename())) {
+        if (FileUtils.upload(file, path)) {
+            logger.info("上传图片成功");
             // 上传成功，给出页面提示
             return CommonReturnType.success("上传成功");
         } else {
+            logger.info("上传图片失败");
             return CommonReturnType.fail("图片上传失败");
         }
     }
