@@ -124,4 +124,18 @@ public class ContentsController {
         }
         return CommonReturnType.fail();
     }
+
+    /**
+     * @title
+     * @description 删除
+     * @author jiangfeixiang
+     * @updateTime
+     * @throws
+     */
+    @RequestMapping(value = "/deleteById",method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType deleteById(Integer id){
+        contentsService.deleteById(id);
+        return CommonReturnType.success();
+    }
 }

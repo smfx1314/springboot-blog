@@ -107,6 +107,7 @@ public class ContentsServiceImpl implements ContentsService {
         return contentsImagesModels;
     }
 
+
     /**
      * ImagesDo+ContentsDo-->ContentsImagesModel
      */
@@ -117,5 +118,15 @@ public class ContentsServiceImpl implements ContentsService {
 
         logger.info("ContentsServiceImpl中：contentsImagesModel整合成功");
         return contentsImagesModel;
+    }
+
+    /**
+     * 删除
+     */
+    @Override
+    public void deleteById(Integer id) {
+        ContentsDo contentsDo = contentsDoMapper.selectByPrimaryKey(id);
+        imagesDoMapper.deleteByContentId(contentsDo.getCid());
+        contentsDoMapper.deleteByPrimaryKey(id);
     }
 }
