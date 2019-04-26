@@ -35,8 +35,6 @@ public class ContentsImagesModel {
 
     private String titleUrl;
 
-    private Integer contentId;
-
     public String getTitle() {
         return title;
     }
@@ -107,14 +105,6 @@ public class ContentsImagesModel {
 
     public void setTitleUrl(String titleUrl) {
         this.titleUrl = titleUrl;
-    }
-
-    public Integer getContentId() {
-        return contentId;
-    }
-
-    public void setContentId(Integer contentId) {
-        this.contentId = contentId;
     }
 
     public Integer getCid() {

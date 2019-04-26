@@ -1,8 +1,10 @@
 package com.jiangfeixiang.springbootblog.controller.admin;
 
 import com.jiangfeixiang.springbootblog.common.CommonReturnType;
+import com.jiangfeixiang.springbootblog.entity.ImagesDo;
 import com.jiangfeixiang.springbootblog.entity.UserDo;
 import com.jiangfeixiang.springbootblog.service.ContentsService;
+import com.jiangfeixiang.springbootblog.service.ImagesService;
 import com.jiangfeixiang.springbootblog.service.model.ContentsImagesModel;
 import com.jiangfeixiang.springbootblog.util.FileUtils;
 import org.slf4j.Logger;
@@ -13,6 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * @ProjectName: springboot-blog
@@ -32,6 +38,11 @@ public class ContentsController {
     @Autowired
     private ContentsService contentsService;
 
+    @Autowired
+    private ImagesService imagesService;
+
+    //源文件拓展名称
+    String newFileName=null;
     /**
      * 上传文件
      * @param file
@@ -40,18 +51,24 @@ public class ContentsController {
     @RequestMapping(value = "/uploadImage",method = RequestMethod.POST)
     @ResponseBody
     public CommonReturnType uploadImage(@RequestParam(value="title_Url") MultipartFile file) {
-        //图片上传成功后，将图片的地址写到数据库
         //保存图片的路径
         String path = "M:\\upload";
-        if (FileUtils.upload(file, path)) {
+        //获取原始图片的拓展名
+        String originalFilename = file.getOriginalFilename();
+        //UUID+源文件名称随机生成新的文件名
+        newFileName = UUID.randomUUID()+ originalFilename;
+        //封装上传文件位置的全路径
+        File targetFile  = new File(path,newFileName);
+        //保存文件
+        try {
+            file.transferTo(targetFile );
             logger.info("上传图片成功");
-            // 上传成功，给出页面提示
-            return CommonReturnType.success("上传成功");
-        } else {
-            logger.info("上传图片失败");
-            return CommonReturnType.fail("图片上传失败");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return CommonReturnType.success();
     }
+
     /**
      * 写博客，插入博客内容
      * @param title
@@ -73,12 +90,6 @@ public class ContentsController {
                                        @RequestParam("categories") String categories,
                                        @RequestParam(value = "allow_comment",defaultValue = "1") Integer allow_comment,
                                        HttpServletRequest request) {
-        //判断用户是否登录
-        UserDo userDo = (UserDo) request.getSession().getAttribute("userDo");
-        System.out.println(userDo);
-        if (userDo == null){
-            return CommonReturnType.fail("用户未登录");
-        }
         ContentsImagesModel contentsImagesModel = new ContentsImagesModel();
         contentsImagesModel.setTitle(title);
         contentsImagesModel.setContent(content);
@@ -87,8 +98,27 @@ public class ContentsController {
         contentsImagesModel.setTags(tags);
         contentsImagesModel.setCategories(categories);
         contentsImagesModel.setAllowComment(allow_comment);
-        contentsImagesModel.setAuthorId(userDo.getUid());
+        contentsImagesModel.setTitleUrl(newFileName);
+        System.out.println(newFileName);
         contentsService.insertSelective(contentsImagesModel);
         return CommonReturnType.success();
+    }
+
+    /**
+     * @title
+     * @description  查询博客
+     * @author jiangfeixiang
+     * @updateTime
+     * @throws
+     */
+    @RequestMapping(value = "/getAllComtents",method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType getAllComtents(){
+        logger.info("好好啊");
+        List<ContentsImagesModel> contentsImagesModels = contentsService.getAllContents();
+        if (contentsImagesModels !=null){
+            return CommonReturnType.success(contentsImagesModels);
+        }
+        return CommonReturnType.fail();
     }
 }

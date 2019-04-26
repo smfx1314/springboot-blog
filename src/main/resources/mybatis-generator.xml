@@ -44,17 +44,17 @@
                selectByExampleQueryId="false">
 
         </table>-->
-        <table tableName="t_contents" domainObjectName="ContentsDo"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-
-        </table>
-        <!--<table tableName="t_images" domainObjectName="ImagesDo"
+        <!--<table tableName="t_contents" domainObjectName="ContentsDo"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
 
         </table>-->
+        <table tableName="t_images" domainObjectName="ImagesDo"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+
+        </table>
     </context>
 </generatorConfiguration>

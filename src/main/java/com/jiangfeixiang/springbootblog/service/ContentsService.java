@@ -3,6 +3,8 @@ package com.jiangfeixiang.springbootblog.service;
 import com.jiangfeixiang.springbootblog.entity.ContentsDo;
 import com.jiangfeixiang.springbootblog.service.model.ContentsImagesModel;
 
+import java.util.List;
+
 /**
  * @ProjectName: springboot-blog
  * @Package: com.jiangfeixiang.springbootblog.service
@@ -20,4 +22,10 @@ public interface ContentsService {
      * @return
      */
     void insertSelective(ContentsImagesModel contentsImagesModel);
+
+    /**
+     * 查询所有
+     * @return
+     */
+    List<ContentsImagesModel> getAllContents();
 }
