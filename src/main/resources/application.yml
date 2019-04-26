@@ -25,7 +25,7 @@ spring:
     #thymeleaf
     thymeleaf:
         mvc:
-            static-path-pattern: /static/**
+            static-path-pattern: /image/**
         prefix: classpath:/templates/
         suffix: .html
     thymeleafcache: false
@@ -41,3 +41,5 @@ spring:
         max-file-size: 10MB
         #设置所有文件最大内存
         max-request-size: 2048MB
+
+

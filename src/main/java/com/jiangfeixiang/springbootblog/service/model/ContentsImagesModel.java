@@ -23,6 +23,8 @@ public class ContentsImagesModel {
 
     private String description;
 
+    private Date created;
+
     private Integer authorId;
 
     private Integer status;
@@ -113,5 +115,13 @@ public class ContentsImagesModel {
 
     public void setCid(Integer cid) {
         this.cid = cid;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 }

@@ -114,6 +114,7 @@ public class ContentsServiceImpl implements ContentsService {
         ContentsImagesModel contentsImagesModel = new ContentsImagesModel();
         BeanUtils.copyProperties(imagesDo,contentsImagesModel);
         BeanUtils.copyProperties(contentsDo,contentsImagesModel);
+
         logger.info("ContentsServiceImpl中：contentsImagesModel整合成功");
         return contentsImagesModel;
     }
