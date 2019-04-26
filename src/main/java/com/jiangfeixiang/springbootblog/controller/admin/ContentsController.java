@@ -1,5 +1,7 @@
 package com.jiangfeixiang.springbootblog.controller.admin;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.jiangfeixiang.springbootblog.common.CommonReturnType;
 import com.jiangfeixiang.springbootblog.entity.ImagesDo;
 import com.jiangfeixiang.springbootblog.entity.UserDo;
@@ -113,11 +115,15 @@ public class ContentsController {
      */
     @RequestMapping(value = "/getAllComtents",method = RequestMethod.GET)
     @ResponseBody
-    public CommonReturnType getAllComtents(){
-        logger.info("好好啊");
+    public CommonReturnType getAllComtents(@RequestParam(defaultValue="1",required=true,value="pageNo") Integer pageNo){
+        //每页显示记录数
+        Integer pageSize=4;
+        //分页查询
+        PageHelper.startPage(pageNo, pageSize);
         List<ContentsImagesModel> contentsImagesModels = contentsService.getAllContents();
-        if (contentsImagesModels !=null){
-            return CommonReturnType.success(contentsImagesModels);
+        PageInfo<ContentsImagesModel> pageInfo=new PageInfo<>(contentsImagesModels);
+        if (pageInfo !=null){
+            return CommonReturnType.success(pageInfo);
         }
         return CommonReturnType.fail();
     }
