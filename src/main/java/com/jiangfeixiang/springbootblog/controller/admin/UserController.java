@@ -2,7 +2,6 @@ package com.jiangfeixiang.springbootblog.controller.admin;
 
 import com.jiangfeixiang.springbootblog.common.CommonReturnType;
 import com.jiangfeixiang.springbootblog.entity.UserDo;
-import com.jiangfeixiang.springbootblog.kaptcha.CodeUtil;
 import com.jiangfeixiang.springbootblog.service.UserService;
 import com.jiangfeixiang.springbootblog.util.MyMD5Util;
 import org.slf4j.Logger;
@@ -43,8 +42,7 @@ public class UserController {
     @ResponseBody
     public CommonReturnType insertUser(@RequestParam("username") String username,
                                        @RequestParam("password") String password,
-                                       @RequestParam("email") String email,
-                                       HttpServletRequest request){
+                                       @RequestParam("email") String email){
         /*System.out.println("111111"+CodeUtil.checkVerifyCode(request));
         if (CodeUtil.checkVerifyCode(request)==false) {
             return CommonReturnType.fail("验证码不能为空");

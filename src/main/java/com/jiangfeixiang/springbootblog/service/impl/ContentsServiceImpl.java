@@ -1,6 +1,5 @@
 package com.jiangfeixiang.springbootblog.service.impl;
 
-import com.github.pagehelper.PageInfo;
 import com.jiangfeixiang.springbootblog.controller.admin.ContentsController;
 import com.jiangfeixiang.springbootblog.dao.ContentsDoMapper;
 import com.jiangfeixiang.springbootblog.dao.ImagesDoMapper;
@@ -53,7 +52,7 @@ public class ContentsServiceImpl implements ContentsService {
         contentsImagesModel.setCid(contentsDo.getCid());
 
         //实现model-->ImagesDo
-        ImagesDo imagesDo = ImagesDoFromModel(contentsImagesModel);
+        ImagesDo imagesDo = imagesDoFromModel(contentsImagesModel);
         imagesDoMapper.insertSelective(imagesDo);
 
     }
@@ -75,7 +74,7 @@ public class ContentsServiceImpl implements ContentsService {
      * @param contentsImagesModel
      * @return
      */
-    private ImagesDo ImagesDoFromModel(ContentsImagesModel contentsImagesModel){
+    private ImagesDo imagesDoFromModel(ContentsImagesModel contentsImagesModel){
         ImagesDo imagesDo = new ImagesDo();
         imagesDo.setTitleUrl(contentsImagesModel.getTitleUrl());
         //外键

@@ -2,6 +2,7 @@ package com.jiangfeixiang.springbootblog.service.model;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Date;
  * @Description: contents和images模型类
  * @Date: 2019/4/24/0024 15:12
  */
-public class ContentsImagesModel {
+public class ContentsImagesModel implements Serializable {
 
     private Integer cid;
 

@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jiangfeixiang.springbootblog.common.CommonReturnType;
 import com.jiangfeixiang.springbootblog.service.ContentsService;
-import com.jiangfeixiang.springbootblog.service.ImagesService;
 import com.jiangfeixiang.springbootblog.service.model.ContentsImagesModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -37,10 +34,10 @@ public class ContentsController {
     @Autowired
     private ContentsService contentsService;
 
-    @Autowired
-    private ImagesService imagesService;
 
-    //源文件拓展名称
+    /**
+     * 源文件拓展名称
+     */
     String newFileName=null;
     /**
      * 上传文件
@@ -87,8 +84,7 @@ public class ContentsController {
                                        @RequestParam(value = "status",defaultValue = "1") Integer status,
                                        @RequestParam("tags") String tags,
                                        @RequestParam("categories") String categories,
-                                       @RequestParam(value = "allow_comment",defaultValue = "1") Integer allow_comment,
-                                       HttpServletRequest request) {
+                                       @RequestParam(value = "allow_comment",defaultValue = "1") Integer allow_comment) {
         ContentsImagesModel contentsImagesModel = new ContentsImagesModel();
         contentsImagesModel.setTitle(title);
         contentsImagesModel.setContent(content);
@@ -109,9 +105,9 @@ public class ContentsController {
      * @updateTime
      * @throws
      */
-    @RequestMapping(value = "/getAllComtents",method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllContents",method = RequestMethod.GET)
     @ResponseBody
-    public CommonReturnType getAllComtents(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum){
+    public CommonReturnType getAllContents(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum){
         /*//每页显示记录数
         Integer pageSize=4;
         //分页查询

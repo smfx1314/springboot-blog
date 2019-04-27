@@ -11,7 +11,6 @@ import java.util.Date;
  * @updateTime
  * @throws
  */
-
 public class UserDo implements Serializable {
     /**
      *
