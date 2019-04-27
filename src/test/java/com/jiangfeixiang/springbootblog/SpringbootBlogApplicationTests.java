@@ -36,4 +36,12 @@ public class SpringbootBlogApplicationTests {
 
     }
 
+    @Test
+    public void dao() {
+        List<ContentsDo> allContents = contentsDoMapper.getAllContents();
+        System.out.println(allContents.size());
+
+
+    }
+
 }

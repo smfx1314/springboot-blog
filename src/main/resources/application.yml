@@ -2,6 +2,17 @@
 mybatis:
     mapper-locations: classpath:mapper/*xml
     type-aliases-package: com.jiangfeixiang.springbootblog.entity
+    configuration:
+        map-underscore-to-camel-case: true
+    mapper:
+        identity: MYSQL
+
+#分页
+pagehelper:
+    helper-dialect: mysql
+    params: count=countSql
+    reasonable: false
+    support-methods-arguments: true
 #tomcat端口
 server:
     port: 8080

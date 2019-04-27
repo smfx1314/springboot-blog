@@ -124,4 +124,21 @@ public class ContentsImagesModel {
     public void setCreated(Date created) {
         this.created = created;
     }
+
+    @Override
+    public String toString() {
+        return "ContentsImagesModel{" +
+                "cid=" + cid +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", description='" + description + '\'' +
+                ", created=" + created +
+                ", authorId=" + authorId +
+                ", status=" + status +
+                ", tags='" + tags + '\'' +
+                ", categories='" + categories + '\'' +
+                ", allowComment=" + allowComment +
+                ", titleUrl='" + titleUrl + '\'' +
+                '}';
+    }
 }

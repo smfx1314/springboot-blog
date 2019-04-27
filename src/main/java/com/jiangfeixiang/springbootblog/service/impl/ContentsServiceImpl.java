@@ -1,5 +1,6 @@
 package com.jiangfeixiang.springbootblog.service.impl;
 
+import com.github.pagehelper.PageInfo;
 import com.jiangfeixiang.springbootblog.controller.admin.ContentsController;
 import com.jiangfeixiang.springbootblog.dao.ContentsDoMapper;
 import com.jiangfeixiang.springbootblog.dao.ImagesDoMapper;
@@ -99,7 +100,9 @@ public class ContentsServiceImpl implements ContentsService {
             //根据contentId查询对应的图片
             ImagesDo imagesDo = imagesDoMapper.selectByContnteId(contentsDo.getCid());
             //把每项image与contentDo结合
+
             ContentsImagesModel contentsImagesModel = modelContentsAndImagesModel(imagesDo, contentsDo);
+            System.out.println(contentsImagesModel.toString());
             return contentsImagesModel;
             //最终组合在返回list
         }).collect(Collectors.toList());
@@ -115,7 +118,6 @@ public class ContentsServiceImpl implements ContentsService {
         ContentsImagesModel contentsImagesModel = new ContentsImagesModel();
         BeanUtils.copyProperties(imagesDo,contentsImagesModel);
         BeanUtils.copyProperties(contentsDo,contentsImagesModel);
-
         logger.info("ContentsServiceImpl中：contentsImagesModel整合成功");
         return contentsImagesModel;
     }
