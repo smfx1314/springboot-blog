@@ -33,7 +33,7 @@ public interface ContentsService {
     /**
      * 根据id查询
      */
-
+    ContentsImagesModel getByContentId(Integer id);
 
     /**
      * 删除

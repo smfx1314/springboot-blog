@@ -123,6 +123,22 @@ public class ContentsServiceImpl implements ContentsService {
     }
 
     /**
+     * @title
+     * @description 根据id查询
+     * @author jiangfeixiang
+     * @updateTime
+     * @throws
+     */
+    @Override
+    public ContentsImagesModel getByContentId(Integer id) {
+        ContentsDo contentsDo = contentsDoMapper.selectByPrimaryKey(id);
+        ImagesDo imagesDo = imagesDoMapper.selectByContnteId(contentsDo.getCid());
+        ContentsImagesModel contentsImagesModel = modelContentsAndImagesModel(imagesDo, contentsDo);
+        return contentsImagesModel;
+    }
+    
+    
+    /**
      * 删除
      */
     @Override
@@ -131,4 +147,5 @@ public class ContentsServiceImpl implements ContentsService {
         imagesDoMapper.deleteByContentId(contentsDo.getCid());
         contentsDoMapper.deleteByPrimaryKey(id);
     }
+    
 }

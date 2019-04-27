@@ -98,7 +98,6 @@ public class ContentsController {
         contentsImagesModel.setCategories(categories);
         contentsImagesModel.setAllowComment(allow_comment);
         contentsImagesModel.setTitleUrl(newFileName);
-        System.out.println(newFileName);
         contentsService.insertSelective(contentsImagesModel);
         return CommonReturnType.success();
     }
@@ -123,11 +122,29 @@ public class ContentsController {
         PageInfo<Object> pageInfo= PageHelper.startPage(pageNum,5).doSelectPageInfo(() -> contentsService.getAllContents());
 
         if (pageInfo !=null){
+            logger.info("查询所有博客成功");
             return CommonReturnType.success(pageInfo);
         }
         return CommonReturnType.fail();
     }
 
+    /**
+     * @title
+     * @description  根据id查询
+     * @author jiangfeixiang
+     * @updateTime
+     * @throws
+     */
+    @RequestMapping(value = "/getById",method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType getByContentId(Integer id){
+        ContentsImagesModel contentsImagesModel = contentsService.getByContentId(id);
+        if (contentsImagesModel !=null){
+            logger.info("根据id查询成功");
+            return CommonReturnType.success();
+        }
+        return CommonReturnType.fail("未查到数据");
+    }
     /**
      * @title
      * @description 删除
@@ -139,6 +156,7 @@ public class ContentsController {
     @ResponseBody
     public CommonReturnType deleteById(Integer id){
         contentsService.deleteById(id);
+        logger.info("删除博客成功");
         return CommonReturnType.success();
     }
 }
