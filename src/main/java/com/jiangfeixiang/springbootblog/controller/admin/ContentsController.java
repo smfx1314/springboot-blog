@@ -112,7 +112,7 @@ public class ContentsController {
      */
     @RequestMapping(value = "/getAllComtents",method = RequestMethod.GET)
     @ResponseBody
-    public CommonReturnType getAllComtents(@RequestParam(defaultValue="1",required=true,value="pageNo") Integer pageNo){
+    public CommonReturnType getAllComtents(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum){
         /*//每页显示记录数
         Integer pageSize=4;
         //分页查询
@@ -120,7 +120,7 @@ public class ContentsController {
         List<ContentsImagesModel> contentsImagesModels = contentsService.getAllContents();
         System.out.println(contentsImagesModels.size());
         PageInfo<ContentsImagesModel> pageInfo=new PageInfo<>(contentsImagesModels);*/
-        PageInfo<Object> pageInfo= PageHelper.startPage(1,5).doSelectPageInfo(() -> contentsService.getAllContents());
+        PageInfo<Object> pageInfo= PageHelper.startPage(pageNum,5).doSelectPageInfo(() -> contentsService.getAllContents());
 
         if (pageInfo !=null){
             return CommonReturnType.success(pageInfo);
