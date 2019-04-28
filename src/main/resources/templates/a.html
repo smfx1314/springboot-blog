@@ -20,5 +20,40 @@
     </td>
 </tr>
 
+
+<article class="excerpt excerpt-1">
+    <input type="hidden" id="blog-id">
+    <a class="focus" data-id="+contentDo.cid+" id=contentItem"+contentDo.cid+" href="article.html" title="">
+        <img class="thumb" data-original="images/excerpt.jpg" src="images/excerpt.jpg" alt=""></a>
+    <header>
+        <a class="cat" href="program">blog<i></i></a>
+        <h2>
+            <a id="blog-title" href="article.html" title="">+contentDo.title+</a>
+        </h2>
+    </header>
+    <p class="meta">
+        <time class="time">
+            <i id="blog-time" class="glyphicon glyphicon-time">+contentDo.created+</i>
+        </time>
+    <p class="note">created</p>
+</article>
+<script>
+    var d = "<article class=\"excerpt excerpt-1\">\n" +
+        "    <input type=\"hidden\" id=\"blog-id\">\n" +
+        "    <a class=\"focus\" data-id=\"+contentDo.cid+\" id=contentItem\"+contentDo.cid+\" href=\"article.html\" title=\"\">\n" +
+        "        <img class=\"thumb\" data-original=\"images/excerpt.jpg\" src=\"images/excerpt.jpg\" alt=\"\"></a>\n" +
+        "    <header>\n" +
+        "        <a class=\"cat\" href=\"program\">blog<i></i></a>\n" +
+        "        <h2>\n" +
+        "            <a id=\"blog-title\" href=\"article.html\" title=\"\">+contentDo.title+</a>\n" +
+        "        </h2>\n" +
+        "    </header>\n" +
+        "    <p class=\"meta\">\n" +
+        "        <time class=\"time\">\n" +
+        "            <i id=\"blog-time\" class=\"glyphicon glyphicon-time\">+contentDo.created+</i>\n" +
+        "        </time>\n" +
+        "    <p class=\"note\">created</p>\n" +
+        "</article>";
+</script>
 </body>
 </html>

@@ -108,13 +108,6 @@ public class ContentsController {
     @RequestMapping(value = "/getAllContents",method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType getAllContents(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum){
-        /*//每页显示记录数
-        Integer pageSize=4;
-        //分页查询
-        PageHelper.startPage(pageNo, pageSize);
-        List<ContentsImagesModel> contentsImagesModels = contentsService.getAllContents();
-        System.out.println(contentsImagesModels.size());
-        PageInfo<ContentsImagesModel> pageInfo=new PageInfo<>(contentsImagesModels);*/
         PageInfo<Object> pageInfo= PageHelper.startPage(pageNum,5).doSelectPageInfo(() -> contentsService.getAllContents());
 
         if (pageInfo !=null){
@@ -137,7 +130,7 @@ public class ContentsController {
         ContentsImagesModel contentsImagesModel = contentsService.getByContentId(id);
         if (contentsImagesModel !=null){
             logger.info("根据id查询成功");
-            return CommonReturnType.success();
+            return CommonReturnType.success(contentsImagesModel);
         }
         return CommonReturnType.fail("未查到数据");
     }
