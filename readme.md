@@ -5,7 +5,7 @@
 前台主要显示博客，分类标签以及留言板功能。 
 #### 参考博主
 本博客主要前后台模板主要参考[这位博主](http://www.dingyinwu.com/index.html)的模板，点击[网盘下载提取码: bi8h](https://pan.baidu.com/s/14cRvKkbERP9hOOFFY-Cgpg)即可。  
-另外我觉得这位[博主](http://13blog.site/)的页面效果也不错可惜没有源码
+另外我觉得这位[博主](http://13blog.site/)的页面效果也不错，源码请点击[这里](https://github.com/smfx1314/pinghsu)  
 本博客页面参考请点击[这里](https://github.com/smfx1314/springboot-blog-web)
 #### 博客功能大纲
 + 前台
@@ -19,6 +19,27 @@
      ![文章管理](https://upload-images.jianshu.io/upload_images/8504906-d27792cf2b4654b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
      + 写博客
      ![写博客](https://upload-images.jianshu.io/upload_images/8504906-08ec419d326fa20c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+#### 打赏代码
+```
+<script>
+    window.tctipConfig = {
+      staticPrefix: "http://static.tctip.com",
+      buttonImageId: 7,
+      buttonTip: "dashang",
+      list:{
+        alipay: {qrimg: "https://files-cdn.cnblogs.com/files/smfx1314/zhifubao.bmp"},
+        weixin:{qrimg: "https://files-cdn.cnblogs.com/files/smfx1314/weixin.bmp"},
+      }
+    };
+</script>
+<script src="https://files.cnblogs.com/files/hafiz/tctip.min.js"></script>
+<link type="text/css" rel="stylesheet" href="https://files.cnblogs.com/files/hafiz/myRewards.css">
+```
+
+#### 打赏码插件参考
+- [博客园](https://www.cnblogs.com/greedying/p/6483222.html)  
+- [GitHub](https://github.com/greedying/tctip)
 
 #### 技术概况
 + IDEA 2018版
@@ -67,3 +88,8 @@
 一直有从事java开发的激情，无奈社会太残酷。  
 
 **最后，必须简历造假才可以吗？？？**
+
+#### 脚印
++ [简书](https://www.jianshu.com/u/31ccce39a24b)
++ [博客园](https://www.cnblogs.com/smfx1314/)
++ [码云](https://gitee.com/smfx1314)
