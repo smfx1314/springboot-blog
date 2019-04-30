@@ -6,6 +6,7 @@
 #### 参考博主
 本博客主要前后台模板主要参考[这位博主](http://www.dingyinwu.com/index.html)的模板，点击[网盘下载提取码: bi8h](https://pan.baidu.com/s/14cRvKkbERP9hOOFFY-Cgpg)即可。  
 另外我觉得这位[博主](http://13blog.site/)的页面效果也不错可惜没有源码
+本博客页面参考请点击[这里](https://github.com/smfx1314/springboot-blog-web)
 #### 博客功能大纲
 + 前台
     + 首页
