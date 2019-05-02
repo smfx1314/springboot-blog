@@ -1,5 +1,7 @@
 package com.jiangfeixiang.springbootblog.common;
 
+import java.io.Serializable;
+
 /**
  * @Author: 姜飞祥
  * @Description: 封装结果集成统一的json样式
@@ -7,7 +9,7 @@ package com.jiangfeixiang.springbootblog.common;
  * @param: $params$
  * @return: $returns$
  */
-public class CommonReturnType {
+public class CommonReturnType implements Serializable {
     /**
      * 返回编码，0成功，1失败
      */

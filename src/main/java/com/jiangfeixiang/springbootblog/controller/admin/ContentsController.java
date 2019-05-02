@@ -3,11 +3,15 @@ package com.jiangfeixiang.springbootblog.controller.admin;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jiangfeixiang.springbootblog.common.CommonReturnType;
+import com.jiangfeixiang.springbootblog.config.DateFormatConfig;
 import com.jiangfeixiang.springbootblog.service.ContentsService;
 import com.jiangfeixiang.springbootblog.service.model.ContentsImagesModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,6 +38,9 @@ public class ContentsController {
 
     @Autowired
     private ContentsService contentsService;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
 
     /**
@@ -110,11 +117,13 @@ public class ContentsController {
      */
     @RequestMapping(value = "/getAllContents",method = RequestMethod.GET)
     @ResponseBody
+    @Cacheable(value="user-key")
     public CommonReturnType getAllContents(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum){
         PageInfo<Object> pageInfo= PageHelper.startPage(pageNum,5).doSelectPageInfo(() -> contentsService.getAllContents());
-
         if (pageInfo !=null){
             logger.info("查询所有博客成功");
+            ValueOperations<String, Object> operations=redisTemplate.opsForValue();
+            operations.set("pageInfo",pageInfo);
             return CommonReturnType.success(pageInfo);
         }
         return CommonReturnType.fail();

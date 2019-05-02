@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +37,7 @@ public class ContentsServiceImpl implements ContentsService {
 
     @Autowired
     private ImagesDoMapper imagesDoMapper;
+
 
 
     /**
@@ -106,6 +108,7 @@ public class ContentsServiceImpl implements ContentsService {
             //最终组合在返回list
         }).collect(Collectors.toList());
         logger.info("ContentsServiceImpl中：重新组合list成功");
+        System.out.println("使用Redis就不打印这句话");
         return contentsImagesModels;
     }
 

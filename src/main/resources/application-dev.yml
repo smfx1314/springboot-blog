@@ -26,6 +26,26 @@ spring:
     name: springboot-blog
     password: 1234
     username: root
+
+  #Redis相关配置
+  redis:
+    database: 0
+    # 配置Redis的主机地址，需要修改成自己的
+    host: 148.70.185.3
+    port: 6379
+    #密码没有为空即可
+    password:
+    timeout: 5000
+    jedis:
+      pool:
+        # 连接池中的最大空闲连接，默认值也是8。
+        max-idle: 500
+        # 连接池中的最小空闲连接，默认值也是0。
+        min-idle: 50
+        # 如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)
+        max-active: 1000
+        # 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException
+        max-wait: 2000
   #热部署
   devtools:
     remote:
