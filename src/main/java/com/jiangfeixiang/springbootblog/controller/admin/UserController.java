@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * @ProjectName: springboot-blog
@@ -54,6 +55,7 @@ public class UserController {
         userDo.setUsername(username);
         userDo.setPassword(md5Password);
         userDo.setEmail(email);
+        userDo.setCreated(new Date());
 
         int i = userService.insertUser(userDo);
         if (i>0){

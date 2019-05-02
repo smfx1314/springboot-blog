@@ -15,7 +15,7 @@ pagehelper:
   support-methods-arguments: true
 #tomcat端口
 server:
-  port: 8080
+  port: 8081
 spring:
   #数据库配置
   datasource:
@@ -24,8 +24,8 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://148.70.185.3:3306/springbootblog?characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false
     name: springbootblog
-    password: 09120127mfx521
-    username: root
+    password: ****
+    username: ****
   #热部署
   devtools:
     remote:
@@ -36,7 +36,7 @@ spring:
   #thymeleaf
   thymeleaf:
     mvc:
-      static-path-pattern: /image/**
+      static-path-pattern: /static/**
     prefix: classpath:/templates/
     suffix: .html
   thymeleafcache: false

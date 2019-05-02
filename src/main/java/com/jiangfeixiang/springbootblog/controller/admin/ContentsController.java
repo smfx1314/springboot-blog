@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -49,6 +50,7 @@ public class ContentsController {
     public CommonReturnType uploadImage(@RequestParam(value="title_Url") MultipartFile file) {
         //保存图片的路径
         String path = "M:\\upload";
+        //String path = "/usr/local/upload/";
         //获取原始图片的拓展名
         String originalFilename = file.getOriginalFilename();
         //UUID+源文件名称随机生成新的文件名
@@ -94,6 +96,7 @@ public class ContentsController {
         contentsImagesModel.setCategories(categories);
         contentsImagesModel.setAllowComment(allow_comment);
         contentsImagesModel.setTitleUrl(newFileName);
+        contentsImagesModel.setCreated(new Date());
         contentsService.insertSelective(contentsImagesModel);
         return CommonReturnType.success();
     }
