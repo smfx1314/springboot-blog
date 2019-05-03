@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jiangfeixiang.springbootblog.common.CommonReturnType;
 import com.jiangfeixiang.springbootblog.config.DateFormatConfig;
+import com.jiangfeixiang.springbootblog.entity.UserDo;
 import com.jiangfeixiang.springbootblog.service.ContentsService;
 import com.jiangfeixiang.springbootblog.service.model.ContentsImagesModel;
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -42,6 +44,8 @@ public class ContentsController {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Autowired
+    private HttpServletRequest httpServletRequest;
 
     /**
      * 源文件拓展名称
@@ -94,6 +98,7 @@ public class ContentsController {
                                        @RequestParam("tags") String tags,
                                        @RequestParam("categories") String categories,
                                        @RequestParam(value = "allow_comment",defaultValue = "1") Integer allow_comment) {
+
         ContentsImagesModel contentsImagesModel = new ContentsImagesModel();
         contentsImagesModel.setTitle(title);
         contentsImagesModel.setContent(content);
@@ -104,6 +109,13 @@ public class ContentsController {
         contentsImagesModel.setAllowComment(allow_comment);
         contentsImagesModel.setTitleUrl(newFileName);
         contentsImagesModel.setCreated(new Date());
+        //获取用户登录凭证，如果为true为登录,否则请登录，暂时注释，没有解决跨越问题
+       /* boolean is_login = (boolean) httpServletRequest.getSession().getAttribute("IS_LOGIN");
+        if (is_login == false){
+            CommonReturnType.fail("用户没有登录，请先登录");
+        }
+        UserDo userDo = (UserDo) httpServletRequest.getSession().getAttribute("LOGIN_USER");
+        contentsImagesModel.setAuthorId(userDo.getUid());*/
         contentsService.insertSelective(contentsImagesModel);
         return CommonReturnType.success();
     }
@@ -117,13 +129,13 @@ public class ContentsController {
      */
     @RequestMapping(value = "/getAllContents",method = RequestMethod.GET)
     @ResponseBody
-    @Cacheable(value="user-key")
+    //@Cacheable(value="user-key")
     public CommonReturnType getAllContents(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum){
         PageInfo<Object> pageInfo= PageHelper.startPage(pageNum,5).doSelectPageInfo(() -> contentsService.getAllContents());
         if (pageInfo !=null){
             logger.info("查询所有博客成功");
-            ValueOperations<String, Object> operations=redisTemplate.opsForValue();
-            operations.set("pageInfo",pageInfo);
+            /*ValueOperations<String, Object> operations=redisTemplate.opsForValue();
+            operations.set("pageInfo",pageInfo);*/
             return CommonReturnType.success(pageInfo);
         }
         return CommonReturnType.fail();

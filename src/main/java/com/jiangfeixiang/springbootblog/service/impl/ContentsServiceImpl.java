@@ -103,7 +103,6 @@ public class ContentsServiceImpl implements ContentsService {
             //把每项image与contentDo结合
 
             ContentsImagesModel contentsImagesModel = modelContentsAndImagesModel(imagesDo, contentsDo);
-            System.out.println(contentsImagesModel.toString());
             return contentsImagesModel;
             //最终组合在返回list
         }).collect(Collectors.toList());

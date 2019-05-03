@@ -34,6 +34,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private HttpServletRequest httpServletRequest;
+
     /**
      * 注册用户
      * @param
@@ -99,7 +102,8 @@ public class UserController {
         UserDo userDo = userService.login(username, md5Password);
         if (userDo!=null){
             //用户缓存
-            request.getSession().setAttribute("userDo",userDo);
+           this.httpServletRequest.getSession().setAttribute("IS_LOGIN",true);
+           this.httpServletRequest.getSession().setAttribute("LOGIN_USER",userDo);
             return CommonReturnType.success();
         }
         return CommonReturnType.fail("用户名或密码不正确");

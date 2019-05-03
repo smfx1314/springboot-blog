@@ -3,6 +3,8 @@ package com.jiangfeixiang.springbootblog;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
+
 /**
  * @title
  * @description
@@ -13,6 +15,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("com.jiangfeixiang.springbootblog.dao")
+/**
+ * 扫描过滤器包
+ */
+@ServletComponentScan
 public class SpringbootBlogApplication {
 
     public static void main(String[] args) {
