@@ -97,15 +97,10 @@
 + 增强bug解决的能力
 + 巩固了ajax等前端技术的使用
 + 等等
-####  关于
-> 本人一直以来自学java，现在熟练使用java主流技术包括spring，mybatis，sprigMVC，springboot等等技术。  
-以及能够在Linux多平台开发，了解docker简单命令使用。简博客也是对我这段时间以来所学知识的整合使用，  
-一直有从事java开发的激情，无奈社会太残酷。  
 
 #### 脚印
 + [简书](https://www.jianshu.com/u/31ccce39a24b)
 + [博客园](https://www.cnblogs.com/smfx1314/)
 + [码云](https://gitee.com/smfx1314)
 
-**最后，必须简历造假才可以吗？？？**
 
