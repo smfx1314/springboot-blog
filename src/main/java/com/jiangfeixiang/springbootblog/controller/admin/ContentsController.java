@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -117,6 +118,13 @@ public class ContentsController {
         UserDo userDo = (UserDo) httpServletRequest.getSession().getAttribute("LOGIN_USER");
         contentsImagesModel.setAuthorId(userDo.getUid());*/
         contentsService.insertSelective(contentsImagesModel);
+        /**
+         * 插入数据之后再次查询并保持到Redis中，保持数据同步
+         */
+        /*List<ContentsImagesModel> allContents = contentsService.getAllContents();
+        if (allContents !=null){
+            redisTemplate.opsForValue().set("blog-key",allContents);
+        }*/
         return CommonReturnType.success();
     }
 
@@ -129,7 +137,7 @@ public class ContentsController {
      */
     @RequestMapping(value = "/getAllContents",method = RequestMethod.GET)
     @ResponseBody
-    //@Cacheable(value="user-key")
+    //@Cacheable(value="blog-key")
     public CommonReturnType getAllContents(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum){
         PageInfo<Object> pageInfo= PageHelper.startPage(pageNum,5).doSelectPageInfo(() -> contentsService.getAllContents());
         if (pageInfo !=null){
