@@ -3,13 +3,15 @@ package com.jiangfeixiang.springbootblog.controller.front;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jiangfeixiang.springbootblog.common.CommonReturnType;
-import com.jiangfeixiang.springbootblog.controller.admin.UserController;
 import com.jiangfeixiang.springbootblog.service.ContentsService;
+import com.jiangfeixiang.springbootblog.service.model.ContentsImagesModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @ProjectName: springboot-blog
@@ -38,13 +40,10 @@ public class BlogController {
      */
     @RequestMapping(value = "/getAllBlog",method = RequestMethod.GET)
     @ResponseBody
-    public CommonReturnType getAllContents(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum){
-        PageInfo<Object> pageInfo= PageHelper.startPage(pageNum,5).doSelectPageInfo(() -> contentsService.getAllContents());
-
-        if (pageInfo !=null){
-            logger.info("查询所有博客成功");
-            return CommonReturnType.success(pageInfo);
-        }
-        return CommonReturnType.fail();
+    public CommonReturnType getAllContents(@RequestParam(value = "pageNum",defaultValue = "1") int pageNum){
+        PageHelper.startPage(pageNum, 3);
+        List<ContentsImagesModel> cims = contentsService.getAllContents();
+        PageInfo<ContentsImagesModel> pageInfo=new PageInfo<>(cims);
+        return CommonReturnType.success(pageInfo);
     }
 }

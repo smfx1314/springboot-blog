@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 /**
@@ -34,8 +36,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private HttpServletRequest httpServletRequest;
 
     /**
      * 注册用户
@@ -96,14 +96,14 @@ public class UserController {
     @ResponseBody
     public CommonReturnType login(@RequestParam("username") String username,
                                   @RequestParam("password") String password,
-                                  HttpServletRequest request){
+                                  HttpSession session){
+
         //比对加密后的密码是否一致
         String md5Password = MyMD5Util.md5Password(password);
         UserDo userDo = userService.login(username, md5Password);
         if (userDo!=null){
-            //用户缓存
-           this.httpServletRequest.getSession().setAttribute("IS_LOGIN",true);
-           this.httpServletRequest.getSession().setAttribute("LOGIN_USER",userDo);
+            //用户session
+            session.setAttribute("LOGIN_USER",userDo);
             return CommonReturnType.success();
         }
         return CommonReturnType.fail("用户名或密码不正确");

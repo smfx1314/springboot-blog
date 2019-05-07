@@ -24,7 +24,7 @@ public interface ContentsDoMapper {
      * @param record
      * @return
      */
-    int insert(ContentsDo record);
+    int insertContentsDo(ContentsDo record);
 
     /**
      * 插入：选择性插入

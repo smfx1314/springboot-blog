@@ -37,7 +37,7 @@
   </select>
 
   <!--  校验用户名是否存在，根据用户名查询-->
-  <select id="selectByUsername" resultType="UserDo">
+  <select id="selectByUsername" resultType="com.jiangfeixiang.springbootblog.entity.UserDo">
     select
     <include refid="Base_Column_List" />
     from t_users
@@ -45,7 +45,7 @@
   </select>
 
   <!--  根据用户名和密码查询-->
-  <select id="selectByUsernameAndPassword" resultType="UserDo">
+  <select id="selectByUsernameAndPassword" resultType="com.jiangfeixiang.springbootblog.entity.UserDo">
     select
     <include refid="Base_Column_List" />
     from t_users

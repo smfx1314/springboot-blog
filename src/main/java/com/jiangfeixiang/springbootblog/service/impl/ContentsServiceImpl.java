@@ -90,35 +90,42 @@ public class ContentsServiceImpl implements ContentsService {
      */
     @Override
     public List<ContentsImagesModel> getAllContents() {
-
         /**
          * 通过stream流化，把每一个contentsDo流化
          * 然后在根据contentsDo的属性contentId查询图片
          * 最后整合在一起再返回list
          */
         List<ContentsDo> contentsDos = contentsDoMapper.getAllContents();
+        /*List<ImagesDo> imagesDos = imagesDoMapper.getAllImages();*/
+
+        //将list转化为map
+        /*Map<Integer, String> images = imagesDos.stream().collect(
+                Collectors.toMap(imagesDo->imagesDo.getContentId(), imagesDo->imagesDo.getTitleUrl()));
+
+        List<ContentsImagesModel> contentsImagesModels= contentsDos.stream().map(contentsDo -> {
+            ContentsImagesModel contentsImagesModel = modelContentsAndImagesModel(images.get(contentsDo.getCid()),contentsDo);
+            return contentsImagesModel;
+        }).collect(Collectors.toList());*/
         List<ContentsImagesModel> contentsImagesModels = contentsDos.stream().map(contentsDo -> {
             //根据contentId查询对应的图片
             ImagesDo imagesDo = imagesDoMapper.selectByContnteId(contentsDo.getCid());
             //把每项image与contentDo结合
-
-            ContentsImagesModel contentsImagesModel = modelContentsAndImagesModel(imagesDo, contentsDo);
+            ContentsImagesModel contentsImagesModel = modelContentsAndImagesModel(imagesDo.getTitleUrl(), contentsDo);
             return contentsImagesModel;
             //最终组合在返回list
         }).collect(Collectors.toList());
-        logger.info("ContentsServiceImpl中：重新组合list成功");
-        System.out.println("使用Redis就不打印这句话");
         return contentsImagesModels;
     }
+
 
 
     /**
      * ImagesDo+ContentsDo-->ContentsImagesModel
      */
-    public ContentsImagesModel modelContentsAndImagesModel(ImagesDo imagesDo,ContentsDo contentsDo){
+    public ContentsImagesModel modelContentsAndImagesModel(String titleUrl,ContentsDo contentsDo){
         ContentsImagesModel contentsImagesModel = new ContentsImagesModel();
-        BeanUtils.copyProperties(imagesDo,contentsImagesModel);
         BeanUtils.copyProperties(contentsDo,contentsImagesModel);
+        contentsImagesModel.setTitleUrl(titleUrl);
         logger.info("ContentsServiceImpl中：contentsImagesModel整合成功");
         return contentsImagesModel;
     }
@@ -134,7 +141,7 @@ public class ContentsServiceImpl implements ContentsService {
     public ContentsImagesModel getByContentId(Integer id) {
         ContentsDo contentsDo = contentsDoMapper.selectByPrimaryKey(id);
         ImagesDo imagesDo = imagesDoMapper.selectByContnteId(contentsDo.getCid());
-        ContentsImagesModel contentsImagesModel = modelContentsAndImagesModel(imagesDo, contentsDo);
+        ContentsImagesModel contentsImagesModel = modelContentsAndImagesModel(imagesDo.getTitleUrl(), contentsDo);
         return contentsImagesModel;
     }
     

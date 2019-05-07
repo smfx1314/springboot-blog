@@ -31,17 +31,5 @@ public class SpringbootBlogApplicationTests {
         for (ContentsDo c:contents) {
             System.out.println(c);
         }
-        /*ImagesDo imagesDo = imagesDoMapper.selectByContnteId(c.getCid());
-        System.out.println(imagesDo.toString());*/
-
     }
-
-    @Test
-    public void dao() {
-        List<ContentsDo> allContents = contentsDoMapper.getAllContents();
-        System.out.println(allContents.size());
-
-
-    }
-
 }

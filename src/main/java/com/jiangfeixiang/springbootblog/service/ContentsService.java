@@ -1,7 +1,7 @@
 package com.jiangfeixiang.springbootblog.service;
 
+
 import com.jiangfeixiang.springbootblog.entity.ContentsDo;
-import com.jiangfeixiang.springbootblog.entity.ImagesDo;
 import com.jiangfeixiang.springbootblog.service.model.ContentsImagesModel;
 
 import java.util.List;
@@ -29,6 +29,9 @@ public interface ContentsService {
      * @return
      */
     List<ContentsImagesModel> getAllContents();
+
+
+    //List<ContentsDo> getAllContents();
 
     /**
      * 根据id查询

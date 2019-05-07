@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -45,9 +47,6 @@ public class ContentsController {
     @Autowired
     private RedisTemplate redisTemplate;
 
-    @Autowired
-    private HttpServletRequest httpServletRequest;
-
     /**
      * 源文件拓展名称
      */
@@ -62,11 +61,12 @@ public class ContentsController {
     public CommonReturnType uploadImage(@RequestParam(value="title_Url") MultipartFile file) {
         //保存图片的路径
         String path = "M:\\upload";
-        //String path = "/usr/local/upload/";
+        //String path = "/usr/local/upload";
         //获取原始图片的拓展名
         String originalFilename = file.getOriginalFilename();
         //UUID+源文件名称随机生成新的文件名
         newFileName = UUID.randomUUID()+ originalFilename;
+        System.out.println(newFileName);
         //封装上传文件位置的全路径
         File targetFile  = new File(path,newFileName);
         //保存文件
@@ -98,33 +98,22 @@ public class ContentsController {
                                        @RequestParam(value = "status",defaultValue = "1") Integer status,
                                        @RequestParam("tags") String tags,
                                        @RequestParam("categories") String categories,
-                                       @RequestParam(value = "allow_comment",defaultValue = "1") Integer allow_comment) {
+                                       @RequestParam(value = "allow_comment",defaultValue = "1") Integer allow_comment,
+                                       HttpSession session) {
 
         ContentsImagesModel contentsImagesModel = new ContentsImagesModel();
         contentsImagesModel.setTitle(title);
         contentsImagesModel.setContent(content);
         contentsImagesModel.setDescription(description);
+        contentsImagesModel.setCreated(new Date());
         contentsImagesModel.setStatus(status);
         contentsImagesModel.setTags(tags);
         contentsImagesModel.setCategories(categories);
         contentsImagesModel.setAllowComment(allow_comment);
         contentsImagesModel.setTitleUrl(newFileName);
-        contentsImagesModel.setCreated(new Date());
-        //获取用户登录凭证，如果为true为登录,否则请登录，暂时注释，没有解决跨越问题
-       /* boolean is_login = (boolean) httpServletRequest.getSession().getAttribute("IS_LOGIN");
-        if (is_login == false){
-            CommonReturnType.fail("用户没有登录，请先登录");
-        }
-        UserDo userDo = (UserDo) httpServletRequest.getSession().getAttribute("LOGIN_USER");
+        /*UserDo userDo = (UserDo) session.getAttribute("LOGIN_USER");
         contentsImagesModel.setAuthorId(userDo.getUid());*/
         contentsService.insertSelective(contentsImagesModel);
-        /**
-         * 插入数据之后再次查询并保持到Redis中，保持数据同步
-         */
-        /*List<ContentsImagesModel> allContents = contentsService.getAllContents();
-        if (allContents !=null){
-            redisTemplate.opsForValue().set("blog-key",allContents);
-        }*/
         return CommonReturnType.success();
     }
 
@@ -139,14 +128,10 @@ public class ContentsController {
     @ResponseBody
     //@Cacheable(value="blog-key")
     public CommonReturnType getAllContents(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum){
-        PageInfo<Object> pageInfo= PageHelper.startPage(pageNum,5).doSelectPageInfo(() -> contentsService.getAllContents());
-        if (pageInfo !=null){
-            logger.info("查询所有博客成功");
-            /*ValueOperations<String, Object> operations=redisTemplate.opsForValue();
-            operations.set("pageInfo",pageInfo);*/
-            return CommonReturnType.success(pageInfo);
-        }
-        return CommonReturnType.fail();
+        PageHelper.startPage(pageNum, 3,true);
+        List<ContentsImagesModel> cims = contentsService.getAllContents();
+        PageInfo<ContentsImagesModel> pageInfo=new PageInfo<>(cims);
+        return CommonReturnType.success(pageInfo);
     }
 
     /**
