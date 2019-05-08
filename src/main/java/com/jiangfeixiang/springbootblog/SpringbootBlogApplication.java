@@ -15,10 +15,6 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @SpringBootApplication
 @MapperScan("com.jiangfeixiang.springbootblog.dao")
-/**
- * 扫描过滤器包
- */
-@ServletComponentScan
 public class SpringbootBlogApplication {
 
     public static void main(String[] args) {

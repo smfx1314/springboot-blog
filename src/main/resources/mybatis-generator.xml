@@ -50,7 +50,7 @@
                selectByExampleQueryId="false">
 
         </table>-->
-        <table tableName="t_images" domainObjectName="ImagesDo"
+        <table tableName="t_blogs" domainObjectName="BlogsDo"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

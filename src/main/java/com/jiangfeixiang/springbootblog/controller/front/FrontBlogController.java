@@ -3,6 +3,8 @@ package com.jiangfeixiang.springbootblog.controller.front;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jiangfeixiang.springbootblog.common.CommonReturnType;
+import com.jiangfeixiang.springbootblog.entity.BlogsDo;
+import com.jiangfeixiang.springbootblog.service.BlogService;
 import com.jiangfeixiang.springbootblog.service.ContentsService;
 import com.jiangfeixiang.springbootblog.service.model.ContentsImagesModel;
 import org.slf4j.Logger;
@@ -25,11 +27,11 @@ import java.util.List;
 @Controller
 @RequestMapping("/blog")
 @CrossOrigin(allowCredentials = "true",allowedHeaders = "*")
-public class BlogController {
-    private final static Logger logger = LoggerFactory.getLogger(BlogController.class);
+public class FrontBlogController {
+    private final static Logger logger = LoggerFactory.getLogger(FrontBlogController.class);
 
     @Autowired
-    private ContentsService contentsService;
+    private BlogService blogService;
 
     /**
      * @title
@@ -42,8 +44,8 @@ public class BlogController {
     @ResponseBody
     public CommonReturnType getAllContents(@RequestParam(value = "pageNum",defaultValue = "1") int pageNum){
         PageHelper.startPage(pageNum, 3);
-        List<ContentsImagesModel> cims = contentsService.getAllContents();
-        PageInfo<ContentsImagesModel> pageInfo=new PageInfo<>(cims);
+        List<BlogsDo> blogs = blogService.selectAllBlogs();
+        PageInfo<BlogsDo> pageInfo=new PageInfo<>(blogs);
         return CommonReturnType.success(pageInfo);
     }
 }
