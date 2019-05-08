@@ -76,7 +76,7 @@ public class AdminBlogController {
      * @param description
      * @param status
      * @param tags
-     * @param allow_comment
+     * @param allowcomment
      * @param session
      * @return
      */
@@ -85,9 +85,9 @@ public class AdminBlogController {
     public CommonReturnType insertBlog(@RequestParam("title") String title,
                                        @RequestParam("content") String content,
                                        @RequestParam("description") String description,
-                                       @RequestParam(value = "status",defaultValue = "1") Integer status,
+                                       @RequestParam("status") Integer status,
                                        @RequestParam("tags") String tags,
-                                       @RequestParam(value = "allow_comment",defaultValue = "1") Integer allow_comment,
+                                       @RequestParam("allowcomment") Integer allowcomment,
                                        HttpSession session) {
 
         BlogsDo blogsDo = new BlogsDo();
@@ -97,7 +97,7 @@ public class AdminBlogController {
         blogsDo.setCreated(new Date());
         blogsDo.setStatus(status);
         blogsDo.setTags(tags);
-        blogsDo.setAllowComment(allow_comment);
+        blogsDo.setAllowComment(allowcomment);
         blogsDo.setTitleUrl(newFileName);
         blogService.insertSelective(blogsDo);
 
@@ -152,6 +152,43 @@ public class AdminBlogController {
     public CommonReturnType deleteById(Integer id){
         blogService.deleteById(id);
         logger.info("删除博客成功");
+        return CommonReturnType.success();
+    }
+
+    /**
+     * 更新博客
+     * @param title
+     * @param content
+     * @param description
+     * @param status
+     * @param tags
+     * @param allowcomment
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/updateBlog",method = RequestMethod.POST)
+    @ResponseBody
+    public CommonReturnType updateBlog(@RequestParam("cid") Integer cid,
+                                       @RequestParam("title") String title,
+                                       @RequestParam("content") String content,
+                                       @RequestParam("description") String description,
+                                       @RequestParam("status") Integer status,
+                                       @RequestParam("tags") String tags,
+                                       @RequestParam("allowcomment") Integer allowcomment,
+                                       HttpSession session){
+
+
+        BlogsDo blogsDo = new BlogsDo();
+        blogsDo.setCid(cid);
+        blogsDo.setTitle(title);
+        blogsDo.setContent(content);
+        blogsDo.setDescription(description);
+        blogsDo.setModified(new Date());
+        blogsDo.setStatus(status);
+        blogsDo.setTags(tags);
+        blogsDo.setAllowComment(allowcomment);
+        blogsDo.setTitleUrl(newFileName);
+        blogService.updateByPrimaryKeySelective(blogsDo);
         return CommonReturnType.success();
     }
 }
