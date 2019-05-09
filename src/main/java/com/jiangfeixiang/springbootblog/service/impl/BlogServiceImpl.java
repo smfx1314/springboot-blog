@@ -54,6 +54,21 @@ public class BlogServiceImpl implements BlogService {
         return blogsDoMapper.selectByPrimaryKey(id);
     }
 
+
+    /**
+     * 模糊查询
+     * @param title
+     * @return
+     */
+    @Override
+    public List<BlogsDo> getBlogByFuzzyQuery(String title) {
+        List<BlogsDo> blogByFuzzyQuery = blogsDoMapper.getBlogByFuzzyQuery(title);
+        if (blogByFuzzyQuery !=null){
+            return blogByFuzzyQuery;
+        }
+        return null;
+    }
+
     /**
      * 根据id删除
      * @param id
@@ -70,8 +85,7 @@ public class BlogServiceImpl implements BlogService {
      */
     @Override
     public int updateByPrimaryKeySelective(BlogsDo blogsDo) {
-        int i = blogsDoMapper.updateByPrimaryKeySelective(blogsDo);
-        return i;
+        return blogsDoMapper.updateByPrimaryKeySelective(blogsDo);
     }
 
 

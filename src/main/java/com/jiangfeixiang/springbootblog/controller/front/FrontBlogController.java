@@ -48,4 +48,14 @@ public class FrontBlogController {
         PageInfo<BlogsDo> pageInfo=new PageInfo<>(blogs);
         return CommonReturnType.success(pageInfo);
     }
+    @RequestMapping(value = "/getBlogByFuzzyQuery",method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType getBlogByFuzzyQuery(@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+                                                @RequestParam(value = "keyword")String title){
+        PageHelper.startPage(pageNum, 20);
+        List<BlogsDo> blogByFuzzyQuery = blogService.getBlogByFuzzyQuery(title);
+        System.out.println(blogByFuzzyQuery);
+        PageInfo<BlogsDo> pageInfo=new PageInfo<>(blogByFuzzyQuery);
+        return CommonReturnType.success(pageInfo);
+    }
 }

@@ -23,23 +23,35 @@ public interface BlogService {
 
     /**
      * 插入博客内容
-     * @param blogsDo
+     * @param blogsDo 实体类
      * @return
      */
     void insertSelective(BlogsDo blogsDo);
 
     /**
      * 根据id查询
+     * @param id
+     * @return
      */
     BlogsDo getByContentId(Integer id);
 
     /**
+     * 模糊查询
+     * @param title
+     * @return
+     */
+    List<BlogsDo> getBlogByFuzzyQuery(String title);
+
+    /**
      * 删除
+     * @param id
      */
     void deleteById(Integer id);
 
     /**
-     * 更新
+     *  更新
+     * @param blogsDo
+     * @return
      */
     int updateByPrimaryKeySelective(BlogsDo blogsDo);
 }
