@@ -58,4 +58,6 @@ public class FrontBlogController {
         PageInfo<BlogsDo> pageInfo=new PageInfo<>(blogByFuzzyQuery);
         return CommonReturnType.success(pageInfo);
     }
+
+
 }

@@ -70,8 +70,16 @@ spring:
   servlet:
     multipart:
       # 设置单个文件最大内存
-      max-file-size: 10MB
+    max-file-size: 10MB
       #设置所有文件最大内存
-      max-request-size: 2048MB
+    max-request-size: 2048MB
+
+  #邮件配置
+  mail:
+    host: smtp.qq.com # 邮件服务器
+    username: 1016767658@qq.com #邮件用户名
+    password: iecrpgqmyhvvbeec #邮件密码
+    default-encoding: UTF-8
+    from: 1016767658@qq.com #发送者
 
 
