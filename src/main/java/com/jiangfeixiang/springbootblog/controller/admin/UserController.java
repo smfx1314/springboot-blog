@@ -29,7 +29,7 @@ import java.util.Date;
  */
 @Controller
 @RequestMapping("/user")
-@CrossOrigin(allowCredentials = "true",allowedHeaders = "*")
+//@CrossOrigin(allowCredentials = "true",allowedHeaders = "*")
 public class UserController {
     private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 

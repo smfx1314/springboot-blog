@@ -5,8 +5,6 @@ import com.github.pagehelper.PageInfo;
 import com.jiangfeixiang.springbootblog.common.CommonReturnType;
 import com.jiangfeixiang.springbootblog.entity.BlogsDo;
 import com.jiangfeixiang.springbootblog.service.BlogService;
-import com.jiangfeixiang.springbootblog.service.ContentsService;
-import com.jiangfeixiang.springbootblog.service.model.ContentsImagesModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,6 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/blog")
-@CrossOrigin(allowCredentials = "true",allowedHeaders = "*")
 public class FrontBlogController {
     private final static Logger logger = LoggerFactory.getLogger(FrontBlogController.class);
 

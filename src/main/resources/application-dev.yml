@@ -78,7 +78,7 @@ spring:
   mail:
     host: smtp.qq.com # 邮件服务器
     username: 1016767658@qq.com #邮件用户名
-    password: iecrpgqmyhvv #邮件密码
+    password: iecrpgqmyhvvbeec #邮件密码
     default-encoding: UTF-8
     from: 1016767658@qq.com #发送者
 

@@ -37,7 +37,6 @@ import java.util.UUID;
  */
 @Controller
 //@RequestMapping("/contents")
-@CrossOrigin(allowCredentials = "true",allowedHeaders = "*")
 public class ContentsController {
     private final static Logger logger = LoggerFactory.getLogger(ContentsController.class);
 

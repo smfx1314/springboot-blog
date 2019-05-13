@@ -22,7 +22,6 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/admin")
-@CrossOrigin(allowCredentials = "true",allowedHeaders = "*")
 public class AdminReaderMsgController {
 
     @Autowired

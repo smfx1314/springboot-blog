@@ -1,18 +1,19 @@
 #mybatis配置
 mybatis:
-  mapper-locations: classpath:mapper/*xml
+  mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.jiangfeixiang.springbootblog.entity
   configuration:
     map-underscore-to-camel-case: true
   mapper:
     identity: MYSQL
 
-#分页
+# 分页配置
 pagehelper:
   helper-dialect: mysql
-  params: count=countSql
-  reasonable: false
+  reasonable: true
   support-methods-arguments: true
+  params: count=countSql
+
 #tomcat端口
 server:
   port: 8081
@@ -22,10 +23,30 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     #driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://148.70.185.3:3306/springbootblog?characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false
+    url: jdbc:mysql://148.70.185.3:3306/springbootblog?characterEncoding=utf-8
     name: springbootblog
     password: 09120127mfx521
     username: root
+
+  #Redis相关配置
+  redis:
+    database: 0
+    # 配置Redis的主机地址，需要修改成自己的
+    host: 148.70.185.3
+    port: 6379
+    #密码没有为空即可
+    password:
+    timeout: 5000
+    jedis:
+      pool:
+        # 连接池中的最大空闲连接，默认值也是8。
+        max-idle: 500
+        # 连接池中的最小空闲连接，默认值也是0。
+        min-idle: 50
+        # 如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)
+        max-active: 1000
+        # 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException
+        max-wait: 2000
   #热部署
   devtools:
     remote:
@@ -48,9 +69,15 @@ spring:
   #文件上传
   servlet:
     multipart:
-      # 设置单个文件最大内存
-      max-file-size: 10MB
-      #设置所有文件最大内存
-      max-request-size: 2048MB
+    # 设置单个文件最大内存
+    max-file-size: 10MB
+    #设置所有文件最大内存
+    max-request-size: 2048MB
 
-
+  #邮件配置
+  mail:
+    host: smtp.qq.com # 邮件服务器
+    username: 1016767658@qq.com #邮件用户名
+    password: iecrpgqmyhvvbeec #邮件密码
+    default-encoding: UTF-8
+    from: 1016767658@qq.com #发送者

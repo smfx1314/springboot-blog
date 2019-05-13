@@ -30,7 +30,6 @@ import java.util.UUID;
  */
 @Controller
 @RequestMapping("/contents")
-@CrossOrigin(allowCredentials = "true",allowedHeaders = "*")
 public class AdminBlogController {
     private final static Logger logger = LoggerFactory.getLogger(AdminBlogController.class);
 
@@ -52,6 +51,7 @@ public class AdminBlogController {
     public CommonReturnType uploadImage(@RequestParam(value="title_Url") MultipartFile file) {
         //保存图片的路径
         String path = "M:\\upload";
+        //String path = "/usr/local/upload";
         //获取原始图片的拓展名
         String originalFilename = file.getOriginalFilename();
         //UUID+源文件名称随机生成新的文件名

@@ -21,7 +21,6 @@ import java.util.Date;
  */
 @Controller
 @RequestMapping("/front")
-@CrossOrigin(allowCredentials = "true",allowedHeaders = "*")
 public class FrontReaderMsgController {
 
     @Autowired
