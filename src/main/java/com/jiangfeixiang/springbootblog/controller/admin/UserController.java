@@ -2,6 +2,7 @@ package com.jiangfeixiang.springbootblog.controller.admin;
 
 import com.jiangfeixiang.springbootblog.common.CommonReturnType;
 import com.jiangfeixiang.springbootblog.entity.UserDo;
+import com.jiangfeixiang.springbootblog.kaptcha.CodeUtil;
 import com.jiangfeixiang.springbootblog.service.UserService;
 import com.jiangfeixiang.springbootblog.util.MyMD5Util;
 import org.slf4j.Logger;
@@ -47,11 +48,7 @@ public class UserController {
     public CommonReturnType insertUser(@RequestParam("username") String username,
                                        @RequestParam("password") String password,
                                        @RequestParam("email") String email){
-        /*System.out.println("111111"+CodeUtil.checkVerifyCode(request));
-        if (CodeUtil.checkVerifyCode(request)==false) {
-            return CommonReturnType.fail("验证码不能为空");
-        }
-        System.out.println(CodeUtil.checkVerifyCode(request));*/
+
         //md5加密密码
         String md5Password = MyMD5Util.md5Password(password);
         UserDo userDo = new UserDo();
