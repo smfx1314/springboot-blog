@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jiangfeixiang.springbootblog.common.CommonReturnType;
 import com.jiangfeixiang.springbootblog.entity.BlogsDo;
+import com.jiangfeixiang.springbootblog.entity.UserDo;
 import com.jiangfeixiang.springbootblog.service.BlogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,6 +100,10 @@ public class AdminBlogController {
         blogsDo.setTags(tags);
         blogsDo.setAllowComment(allowcomment);
         blogsDo.setTitleUrl(newFileName);
+        /*UserDo user = (UserDo) session.getAttribute("LOGIN_USER");
+        System.out.println(session.getId());
+        System.out.println(user.getUid());
+        blogsDo.setAuthorId(user.getUid());*/
         blogService.insertSelective(blogsDo);
 
         return CommonReturnType.success();

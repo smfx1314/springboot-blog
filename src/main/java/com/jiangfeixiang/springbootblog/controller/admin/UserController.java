@@ -101,6 +101,8 @@ public class UserController {
         if (userDo!=null){
             //用户session
             session.setAttribute("LOGIN_USER",userDo);
+            System.out.println(session.getAttribute("LOGIN_USER"));
+            System.out.println(session.getId());
             return CommonReturnType.success();
         }
         return CommonReturnType.fail("用户名或密码不正确");
