@@ -3,9 +3,8 @@ package com.jiangfeixiang.springbootblog.controller.admin;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jiangfeixiang.springbootblog.common.CommonReturnType;
-import com.jiangfeixiang.springbootblog.entity.BlogsDo;
-import com.jiangfeixiang.springbootblog.entity.UserDo;
 import com.jiangfeixiang.springbootblog.service.BlogService;
+import com.jiangfeixiang.springbootblog.service.model.BlogAndImageModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -57,7 +57,6 @@ public class AdminBlogController {
         String originalFilename = file.getOriginalFilename();
         //UUID+源文件名称随机生成新的文件名
         newFileName = UUID.randomUUID()+ originalFilename;
-        System.out.println(newFileName);
         //封装上传文件位置的全路径
         File targetFile  = new File(path,newFileName);
         //保存文件
@@ -83,28 +82,27 @@ public class AdminBlogController {
      */
     @RequestMapping(value = "/insertBlog",method = RequestMethod.POST)
     @ResponseBody
-    public CommonReturnType insertBlog(@RequestParam("title") String title,
-                                       @RequestParam("content") String content,
-                                       @RequestParam("description") String description,
-                                       @RequestParam("status") Integer status,
-                                       @RequestParam("tags") String tags,
-                                       @RequestParam("allowcomment") Integer allowcomment,
+    public CommonReturnType insertBlog(@Valid @RequestParam("title") String title,
+                                       @Valid @RequestParam("content") String content,
+                                       @Valid @RequestParam("description") String description,
+                                       @Valid @RequestParam("status") Integer status,
+                                       @Valid @RequestParam("tags") String tags,
+                                       @Valid @RequestParam("allowcomment") Integer allowcomment,
                                        HttpSession session) {
 
-        BlogsDo blogsDo = new BlogsDo();
-        blogsDo.setTitle(title);
-        blogsDo.setContent(content);
-        blogsDo.setDescription(description);
-        blogsDo.setCreated(new Date());
-        blogsDo.setStatus(status);
-        blogsDo.setTags(tags);
-        blogsDo.setAllowComment(allowcomment);
-        blogsDo.setTitleUrl(newFileName);
-        /*UserDo user = (UserDo) session.getAttribute("LOGIN_USER");
-        System.out.println(session.getId());
-        System.out.println(user.getUid());
-        blogsDo.setAuthorId(user.getUid());*/
-        blogService.insertSelective(blogsDo);
+        BlogAndImageModel blogAndImageModel = new BlogAndImageModel();
+        blogAndImageModel.setTitle(title);
+        blogAndImageModel.setContent(content);
+        blogAndImageModel.setDescription(description);
+        blogAndImageModel.setCreated(new Date());
+        blogAndImageModel.setStatus(status);
+        blogAndImageModel.setTags(tags);
+        blogAndImageModel.setAllowComment(allowcomment);
+        blogAndImageModel.setTitleUrl(newFileName);
+        //获取用户id
+        /*UserAndPassword login_user = (UserAndPassword) session.getAttribute("LOGIN_USER");
+        blogAndImageModel.setAuthorId(login_user.getUid());*/
+        blogService.insertSelective(blogAndImageModel);
 
         return CommonReturnType.success();
     }
@@ -123,10 +121,11 @@ public class AdminBlogController {
     public CommonReturnType getAllContents(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
                                            @RequestParam(value = "pageSize",defaultValue = "3") Integer pageSize){
         PageHelper.startPage(pageNum, pageSize);
-        List<BlogsDo> blogsDos = blogService.selectAllBlogs();
-        PageInfo<BlogsDo> pageInfo=new PageInfo<>(blogsDos);
+        List<BlogAndImageModel> blogsDos = blogService.selectAllBlogs();
+        PageInfo<BlogAndImageModel> pageInfo=new PageInfo<>(blogsDos);
         return CommonReturnType.success(pageInfo);
     }
+
 
     /**
      * @title
@@ -138,7 +137,7 @@ public class AdminBlogController {
     @RequestMapping(value = "/getById",method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType getByContentId(Integer id){
-        BlogsDo byContentId = blogService.getByContentId(id);
+        BlogAndImageModel byContentId = blogService.getByContentId(id);
         if (byContentId !=null){
             logger.info("根据id查询成功");
             return CommonReturnType.success(byContentId);
@@ -173,27 +172,27 @@ public class AdminBlogController {
      */
     @RequestMapping(value = "/updateBlog",method = RequestMethod.POST)
     @ResponseBody
-    public CommonReturnType updateBlog(@RequestParam("cid") Integer cid,
-                                       @RequestParam("title") String title,
-                                       @RequestParam("content") String content,
-                                       @RequestParam("description") String description,
-                                       @RequestParam("status") Integer status,
-                                       @RequestParam("tags") String tags,
-                                       @RequestParam("allowcomment") Integer allowcomment,
+    public CommonReturnType updateBlog( @RequestParam("bid") Integer bid,
+                                        @RequestParam("title") String title,
+                                        @RequestParam("content") String content,
+                                        @RequestParam("description") String description,
+                                        @RequestParam("status") Integer status,
+                                        @RequestParam("tags") String tags,
+                                        @RequestParam("allowcomment") Integer allowcomment,
                                        HttpSession session){
 
 
-        BlogsDo blogsDo = new BlogsDo();
-        blogsDo.setCid(cid);
-        blogsDo.setTitle(title);
-        blogsDo.setContent(content);
-        blogsDo.setDescription(description);
-        blogsDo.setModified(new Date());
-        blogsDo.setStatus(status);
-        blogsDo.setTags(tags);
-        blogsDo.setAllowComment(allowcomment);
-        blogsDo.setTitleUrl(newFileName);
-        blogService.updateByPrimaryKeySelective(blogsDo);
+        BlogAndImageModel blogAndImageModel = new BlogAndImageModel();
+        blogAndImageModel.setBid(bid);
+        blogAndImageModel.setTitle(title);
+        blogAndImageModel.setContent(content);
+        blogAndImageModel.setDescription(description);
+        blogAndImageModel.setModified(new Date());
+        blogAndImageModel.setStatus(status);
+        blogAndImageModel.setTags(tags);
+        blogAndImageModel.setAllowComment(allowcomment);
+        blogAndImageModel.setTitleUrl(newFileName);
+        blogService.updateByPrimaryKeySelective(blogAndImageModel);
         return CommonReturnType.success();
     }
 }

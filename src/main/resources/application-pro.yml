@@ -4,8 +4,6 @@ mybatis:
   type-aliases-package: com.jiangfeixiang.springbootblog.entity
   configuration:
     map-underscore-to-camel-case: true
-  mapper:
-    identity: MYSQL
 
 # 分页配置
 pagehelper:
@@ -20,8 +18,8 @@ server:
 spring:
   #数据库配置
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    #driver-class-name: com.mysql.cj.jdbc.Driver
+    #driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://148.70.185.3:3306/springbootblog?characterEncoding=utf-8
     name: springbootblog

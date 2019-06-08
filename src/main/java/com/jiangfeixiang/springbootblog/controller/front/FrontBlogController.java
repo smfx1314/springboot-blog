@@ -3,8 +3,9 @@ package com.jiangfeixiang.springbootblog.controller.front;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jiangfeixiang.springbootblog.common.CommonReturnType;
-import com.jiangfeixiang.springbootblog.entity.BlogsDo;
+import com.jiangfeixiang.springbootblog.entity.BlogDo;
 import com.jiangfeixiang.springbootblog.service.BlogService;
+import com.jiangfeixiang.springbootblog.service.model.BlogAndImageModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,10 @@ import java.util.List;
  * @Description: 博客操作类
  * @Date: 2019/4/28/0028 12:57
  */
+
 @Controller
 @RequestMapping("/blog")
 public class FrontBlogController {
-    private final static Logger logger = LoggerFactory.getLogger(FrontBlogController.class);
 
     @Autowired
     private BlogService blogService;
@@ -41,20 +42,27 @@ public class FrontBlogController {
     @ResponseBody
     public CommonReturnType getAllContents(@RequestParam(value = "pageNum",defaultValue = "1") int pageNum){
         PageHelper.startPage(pageNum, 3);
-        List<BlogsDo> blogs = blogService.selectAllBlogs();
-        PageInfo<BlogsDo> pageInfo=new PageInfo<>(blogs);
+        List<BlogAndImageModel> blogAndImageModels = blogService.selectAllBlogs();
+        PageInfo<BlogAndImageModel> pageInfo=new PageInfo<>(blogAndImageModels);
         return CommonReturnType.success(pageInfo);
     }
-    @RequestMapping(value = "/getBlogByFuzzyQuery",method = RequestMethod.GET)
+
+    /**
+     * 模糊查询
+     * @param pageNum
+     * @param title
+     * @return
+     */
+    /*@RequestMapping(value = "/getBlogByFuzzyQuery",method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType getBlogByFuzzyQuery(@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
                                                 @RequestParam(value = "keyword")String title){
         PageHelper.startPage(pageNum, 20);
-        List<BlogsDo> blogByFuzzyQuery = blogService.getBlogByFuzzyQuery(title);
+        List<BlogDo> blogByFuzzyQuery = blogService.getBlogByFuzzyQuery(title);
         System.out.println(blogByFuzzyQuery);
-        PageInfo<BlogsDo> pageInfo=new PageInfo<>(blogByFuzzyQuery);
+        PageInfo<BlogDo> pageInfo=new PageInfo<>(blogByFuzzyQuery);
         return CommonReturnType.success(pageInfo);
-    }
+    }*/
 
 
 }

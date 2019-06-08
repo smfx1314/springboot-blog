@@ -1,5 +1,6 @@
 package com.jiangfeixiang.springbootblog.service;
 
+import com.jiangfeixiang.springbootblog.service.model.UserAndPassword;
 import com.jiangfeixiang.springbootblog.entity.UserDo;
 
 /**
@@ -13,20 +14,6 @@ import com.jiangfeixiang.springbootblog.entity.UserDo;
  */
 public interface UserService {
 
-     /**
-     * 注册用户
-     * @param userDo
-     * @return
-     */
-    int insertUser(UserDo userDo);
-
-
-    /**
-     * 登录
-     * @param username
-     * @param password
-     */
-    UserDo login(String username, String password);
 
     /**
      * 校验用户名是否存在 根据用户名查询
@@ -38,8 +25,13 @@ public interface UserService {
     /**
      * 登录 根据用户名密码查询
      * @param username
-     * @param password
      * @return
      */
-    UserDo selectByUsernameAndPassword(String username,String password);
+    UserAndPassword login(String username);
+
+    /**
+     * 注册
+     * @param userAndPassword
+     */
+    Boolean insertUser(UserAndPassword userAndPassword);
 }

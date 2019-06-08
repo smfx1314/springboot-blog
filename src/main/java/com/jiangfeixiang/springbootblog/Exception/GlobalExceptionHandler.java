@@ -1,14 +1,22 @@
 package com.jiangfeixiang.springbootblog.Exception;
 
 import com.jiangfeixiang.springbootblog.common.CommonReturnType;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @ProjectName: springboot-blog
@@ -19,48 +27,39 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @Description: 全局异常类
  * @Date: 2019/4/24/0024 9:03
  */
+
+@Slf4j
 @ControllerAdvice
-@ResponseBody
 public class GlobalExceptionHandler {
-    /**
-     * 打印log
-     */
-    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     /**
-     * 缺少参数异常
+     * 全局异常捕捉处理
      * @param ex
      * @return
      */
-    @ExceptionHandler(MissingServletRequestParameterException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public CommonReturnType handleHttpMessageNotReadableException(
-            MissingServletRequestParameterException ex) {
-        logger.error("缺少请求参数，{}", ex.getMessage());
-        return CommonReturnType.fail("参数缺少");
+    @ExceptionHandler(value = Exception.class)
+    public Map errorHandler(HttpServletRequest req,Exception ex) {
+        Map map = new HashMap();
+        map.put("code", 100);
+        map.put("message", ex.getMessage());
+        map.put("url", req.getRequestURL());
+        map.put("params", req.getParameterMap());
+        log.error("发生未处理的异常={}",ex.getMessage(),ex);
+        return map;
     }
 
     /**
-     * 空指针异常
-     * @param ex NullPointerException
-     * @return
-     */
-    @ExceptionHandler(NullPointerException.class)
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public CommonReturnType handleTypeMismatchException(NullPointerException ex) {
-        logger.error("空指针异常，{}", ex.getMessage());
-        return CommonReturnType.fail("空指针异常");
-    }
-
-    /**
-     * 系统异常 预期以外异常
+     * 拦截捕捉自定义异常 MyException.class
      * @param ex
      * @return
      */
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public CommonReturnType handleUnexpectedServer(Exception ex) {
-        logger.error("系统异常：", ex);
-        return CommonReturnType.fail("系统发生异常，请联系管理员");
+    @ExceptionHandler(value = CommonException.class)
+    public Map myErrorHandler(HttpServletRequest req, CommonException ex) {
+        Map map = new HashMap();
+        map.put("code", ex.getCode());
+        map.put("message", ex.getMsg());
+        map.put("url", req.getRequestURL());
+        map.put("params", req.getParameterMap());
+        return map;
     }
 }

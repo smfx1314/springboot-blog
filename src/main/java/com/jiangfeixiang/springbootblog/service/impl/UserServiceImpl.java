@@ -1,6 +1,9 @@
 package com.jiangfeixiang.springbootblog.service.impl;
 
+import com.jiangfeixiang.springbootblog.service.model.UserAndPassword;
+import com.jiangfeixiang.springbootblog.dao.PasswordDoMapper;
 import com.jiangfeixiang.springbootblog.dao.UserDoMapper;
+import com.jiangfeixiang.springbootblog.entity.PasswordDo;
 import com.jiangfeixiang.springbootblog.entity.UserDo;
 import com.jiangfeixiang.springbootblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,37 +29,40 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDoMapper userDoMapper;
 
-    /**
-     * 登录：根据用户名和密码查询
-     * @param username
-     * @param password
-     * @return
-     */
-    @Override
-    public UserDo selectByUsernameAndPassword(String username, String password) {
-        UserDo userDo = userDoMapper.selectByUsernameAndPassword(username, password);
-        if (userDo !=null){
-            return userDo;
-        }
-        return null;
-    }
+    @Autowired
+    private PasswordDoMapper passwordDoMapper;
+
 
     /**
      * 注册
-     * @param userDo
+     * @param userAndPassword
      * @return
      */
     @Override
-    public int insertUser(UserDo userDo) {
-        int i = userDoMapper.insertSelective(userDo);
-        if (i>0){
-            return i;
-        }
-        return 0;
+    public Boolean insertUser(UserAndPassword userAndPassword) {
+        /**
+         * 插入用户信息
+         */
+        UserDo userDo = new UserDo();
+        userDo.setUsername(userAndPassword.getUsername());
+        userDo.setCreated(userAndPassword.getCreated());
+        userDo.setEmail(userAndPassword.getEmail());
+        userDoMapper.insertSelective(userDo);
+        //获取自增uid，为下面password的外键user_id传值
+        userAndPassword.setUid(userDo.getUid());
+        /**
+         * 插入密码
+         */
+        PasswordDo passwordDo = new PasswordDo();
+        passwordDo.setPassword(userAndPassword.getPassword());
+        passwordDo.setUserId(userAndPassword.getUid());
+        passwordDoMapper.insertSelective(passwordDo);
+        return true;
     }
 
+
     /**
-     * 校验用户名是否存在
+     * 校验用户名是否存在/根据用户名查询
      * @param username
      * @return
      */
@@ -73,16 +79,17 @@ public class UserServiceImpl implements UserService {
     /**
      * 登录
      * @param username
-     * @param password
      */
     @Override
-    public UserDo login(String username, String password) {
-        UserDo userDo = userDoMapper.selectByUsernameAndPassword(username, password);
-        if (userDo !=null){
-            return userDo;
-        }
-        return null;
+    public UserAndPassword login(String username) {
+        UserDo userDo = userDoMapper.selectByUsername(username);
+        PasswordDo passwordDo = passwordDoMapper.selectByUserId(userDo.getUid());
+        UserAndPassword userAndPassword = new UserAndPassword();
+        userAndPassword.setUid(userDo.getUid());
+        userAndPassword.setPassword(passwordDo.getPassword());
+        userAndPassword.setUsername(userDo.getUsername());
+        userAndPassword.setEmail(userDo.getEmail());
+        userAndPassword.setCreated(userDo.getCreated());
+        return userAndPassword;
     }
-
-    
 }

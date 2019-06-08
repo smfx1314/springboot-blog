@@ -38,23 +38,16 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
         <!-- tableName:用于自动生成代码的数据库表；domainObjectName:对应于数据库表的javaBean类名 -->
-        <!--<table tableName="t_users" domainObjectName="UserDo"
+        <table tableName="t_images" domainObjectName="ImagesDo"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
 
-        </table>-->
-        <!--<table tableName="t_contents" domainObjectName="ContentsDo"
+        </table>
+        <table tableName="t_blogs" domainObjectName="BlogDo"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
-
-        </table>-->
-        <table tableName="t_readermassage" domainObjectName="ReaderMassageDo"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-
         </table>
     </context>
 </generatorConfiguration>

@@ -1,35 +1,27 @@
 package com.jiangfeixiang.springbootblog;
 
-import com.jiangfeixiang.springbootblog.dao.ContentsDoMapper;
-import com.jiangfeixiang.springbootblog.dao.ImagesDoMapper;
-import com.jiangfeixiang.springbootblog.entity.ContentsDo;
-import com.jiangfeixiang.springbootblog.entity.ImagesDo;
-import com.jiangfeixiang.springbootblog.service.model.ContentsImagesModel;
+import com.jiangfeixiang.springbootblog.service.BlogService;
+import com.jiangfeixiang.springbootblog.service.model.BlogAndImageModel;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpringbootBlogApplicationTests {
 
     @Autowired
-    private ImagesDoMapper imagesDoMapper;
-
-    @Autowired
-    private ContentsDoMapper contentsDoMapper;
+    private BlogService blogService;
 
     @Test
     public void contextLoads() {
-        List<ContentsDo> contents = contentsDoMapper.getAllContents();
-        for (ContentsDo c:contents) {
-            System.out.println(c);
+        List<BlogAndImageModel> blogAndImageModels = blogService.selectAllBlogs();
+        for (BlogAndImageModel blogDo:blogAndImageModels) {
+            System.out.println(blogDo);
         }
     }
 }

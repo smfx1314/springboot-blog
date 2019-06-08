@@ -1,7 +1,7 @@
 package com.jiangfeixiang.springbootblog.service;
 
-import com.jiangfeixiang.springbootblog.entity.BlogsDo;
-import com.jiangfeixiang.springbootblog.service.model.ContentsImagesModel;
+import com.jiangfeixiang.springbootblog.entity.BlogDo;
+import com.jiangfeixiang.springbootblog.service.model.BlogAndImageModel;
 
 import java.util.List;
 
@@ -19,28 +19,28 @@ public interface BlogService {
     /**
      * 查询所有
      */
-    List<BlogsDo> selectAllBlogs();
+    List<BlogAndImageModel> selectAllBlogs();
 
     /**
      * 插入博客内容
-     * @param blogsDo 实体类
+     * @param blogAndImageModel 实体类
      * @return
      */
-    void insertSelective(BlogsDo blogsDo);
+    void insertSelective(BlogAndImageModel blogAndImageModel);
 
     /**
      * 根据id查询
      * @param id
      * @return
      */
-    BlogsDo getByContentId(Integer id);
+    BlogAndImageModel getByContentId(Integer id);
 
     /**
      * 模糊查询
      * @param title
      * @return
      */
-    List<BlogsDo> getBlogByFuzzyQuery(String title);
+    List<BlogAndImageModel> getBlogByFuzzyQuery(String title);
 
     /**
      * 删除
@@ -50,8 +50,8 @@ public interface BlogService {
 
     /**
      *  更新
-     * @param blogsDo
+     * @param blogAndImageModel
      * @return
      */
-    int updateByPrimaryKeySelective(BlogsDo blogsDo);
+    int updateByPrimaryKeySelective(BlogAndImageModel blogAndImageModel);
 }

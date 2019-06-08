@@ -1,9 +1,6 @@
 package com.jiangfeixiang.springbootblog.service;
 
 import com.jiangfeixiang.springbootblog.entity.ImagesDo;
-import com.jiangfeixiang.springbootblog.service.model.ContentsImagesModel;
-
-import java.util.List;
 
 /**
  * @ProjectName: springboot-blog
