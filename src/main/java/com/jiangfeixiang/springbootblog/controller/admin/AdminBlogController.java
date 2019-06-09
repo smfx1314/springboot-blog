@@ -121,8 +121,8 @@ public class AdminBlogController {
     public CommonReturnType getAllContents(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
                                            @RequestParam(value = "pageSize",defaultValue = "3") Integer pageSize){
         PageHelper.startPage(pageNum, pageSize);
-        List<BlogAndImageModel> blogsDos = blogService.selectAllBlogs();
-        PageInfo<BlogAndImageModel> pageInfo=new PageInfo<>(blogsDos);
+        List<BlogAndImageModel> blogAndImageModelPageInfo = blogService.selectAllBlogs();
+        PageInfo<BlogAndImageModel> pageInfo=new PageInfo<>(blogAndImageModelPageInfo);
         return CommonReturnType.success(pageInfo);
     }
 

@@ -1,5 +1,6 @@
 package com.jiangfeixiang.springbootblog;
 
+import com.github.pagehelper.PageInfo;
 import com.jiangfeixiang.springbootblog.service.BlogService;
 import com.jiangfeixiang.springbootblog.service.model.BlogAndImageModel;
 import org.junit.Test;
@@ -19,9 +20,7 @@ public class SpringbootBlogApplicationTests {
 
     @Test
     public void contextLoads() {
-        List<BlogAndImageModel> blogAndImageModels = blogService.selectAllBlogs();
-        for (BlogAndImageModel blogDo:blogAndImageModels) {
-            System.out.println(blogDo);
-        }
+        List<BlogAndImageModel> blogAndImageModelPageInfo = blogService.selectAllBlogs();
+        System.out.println(blogAndImageModelPageInfo);
     }
 }

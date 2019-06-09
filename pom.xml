@@ -95,11 +95,16 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.10</version>
+        </dependency>
         <!--pagehelper分页-->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.2.3</version>
+            <version>1.2.5</version>
         </dependency>
         <!--mybatis-pageable分页-->
         <dependency>
@@ -109,7 +114,7 @@
         </dependency>
        <!-- <dependency>
             <groupId>com.gitee.hengboy</groupId>
-            <artifactId>mybatis-pageable-core</artifactId>
+            <artifactId>spring-boot-starter-mybatis-pageable</artifactId>
             <version>1.0.6.RELEASE</version>
         </dependency>-->
         <!--邮件-->
@@ -122,12 +127,6 @@
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
             <version>1.1.2-beta5</version>
-        </dependency>
-        <!--生成token-->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.9.0</version>
         </dependency>
     </dependencies>
 

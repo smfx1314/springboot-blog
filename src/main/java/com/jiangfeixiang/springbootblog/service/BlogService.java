@@ -1,5 +1,7 @@
 package com.jiangfeixiang.springbootblog.service;
 
+import com.github.pagehelper.PageInfo;
+import com.jiangfeixiang.springbootblog.common.CommonReturnType;
 import com.jiangfeixiang.springbootblog.entity.BlogDo;
 import com.jiangfeixiang.springbootblog.service.model.BlogAndImageModel;
 
@@ -17,7 +19,7 @@ import java.util.List;
 public interface BlogService {
 
     /**
-     * 查询所有
+     * 查询所有,分页查询
      */
     List<BlogAndImageModel> selectAllBlogs();
 

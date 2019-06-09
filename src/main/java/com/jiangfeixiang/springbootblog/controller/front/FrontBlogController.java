@@ -40,10 +40,11 @@ public class FrontBlogController {
      */
     @RequestMapping(value = "/getAllBlog",method = RequestMethod.GET)
     @ResponseBody
-    public CommonReturnType getAllContents(@RequestParam(value = "pageNum",defaultValue = "1") int pageNum){
-        PageHelper.startPage(pageNum, 3);
-        List<BlogAndImageModel> blogAndImageModels = blogService.selectAllBlogs();
-        PageInfo<BlogAndImageModel> pageInfo=new PageInfo<>(blogAndImageModels);
+    public CommonReturnType getAllContents(@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+                                           @RequestParam(value = "pageSize",defaultValue = "3") int pageSize){
+        PageHelper.startPage(pageNum, pageSize);
+        List<BlogAndImageModel> blogAndImageModelPageInfo = blogService.selectAllBlogs();
+        PageInfo<BlogAndImageModel> pageInfo=new PageInfo<>(blogAndImageModelPageInfo);
         return CommonReturnType.success(pageInfo);
     }
 
