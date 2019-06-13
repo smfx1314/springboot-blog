@@ -20,7 +20,7 @@ public class SpringbootBlogApplicationTests {
 
     @Test
     public void contextLoads() {
-        List<BlogAndImageModel> blogAndImageModelPageInfo = blogService.selectAllBlogs();
-        System.out.println(blogAndImageModelPageInfo);
+      /*  List<BlogAndImageModel> blogAndImageModelPageInfo = blogService.selectAllBlogs();
+        System.out.println(blogAndImageModelPageInfo);*/
     }
 }

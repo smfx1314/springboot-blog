@@ -21,7 +21,7 @@ public interface BlogService {
     /**
      * 查询所有,分页查询
      */
-    List<BlogAndImageModel> selectAllBlogs();
+    List<BlogDo> selectAllBlogs();
 
     /**
      * 插入博客内容

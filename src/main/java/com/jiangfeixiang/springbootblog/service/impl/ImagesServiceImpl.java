@@ -36,4 +36,14 @@ public class ImagesServiceImpl implements ImagesService {
         return  imagesDoMapper.insertSelective(imagesDo);
     }
 
+    /**
+     * 根据id查询
+     * @param bid
+     * @return
+     */
+    @Override
+    public ImagesDo selectByBlogId(Integer bid) {
+        return imagesDoMapper.selectByBlogId(bid);
+    }
+
 }

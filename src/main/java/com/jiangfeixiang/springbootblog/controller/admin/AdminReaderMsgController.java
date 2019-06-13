@@ -5,6 +5,7 @@ import com.alibaba.excel.metadata.Sheet;
 import com.alibaba.excel.support.ExcelTypeEnum;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.jiangfeixiang.springbootblog.aop.LogAnno;
 import com.jiangfeixiang.springbootblog.common.CommonReturnType;
 import com.jiangfeixiang.springbootblog.entity.ReaderMassageDo;
 import com.jiangfeixiang.springbootblog.service.ReaderMsgService;
@@ -42,6 +43,7 @@ public class AdminReaderMsgController {
      * @param pageSize
      * @return
      */
+    @LogAnno(operateType = "获取所有留言")
     @RequestMapping(value = "/getAllMsg",method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType getAllMsg(@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
@@ -59,6 +61,7 @@ public class AdminReaderMsgController {
      * @param id
      * @return
      */
+    @LogAnno(operateType = "根据id查询留言信息内容")
     @RequestMapping(value = "/selectByMsgId",method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType selectByPrimaryKey(Integer id) {
@@ -73,6 +76,7 @@ public class AdminReaderMsgController {
     /**
      * 导出至Excel表
      */
+    @LogAnno(operateType = "导出至Excel表")
     @RequestMapping(value = "/excelOut",method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType excelOut(){

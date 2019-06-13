@@ -19,4 +19,10 @@ public interface ImagesService {
      */
     int insertSelective(ImagesDo imagesDo);
 
+    /**
+     * 根据id查询
+     * @param bid
+     * @return
+     */
+    ImagesDo selectByBlogId(Integer bid);
 }

@@ -62,26 +62,10 @@ public class BlogServiceImpl implements BlogService {
      * @return
      */
     @Override
-    public List<BlogAndImageModel> selectAllBlogs() {
+    public List<BlogDo> selectAllBlogs() {
         List<BlogDo> blogDos = blogsDoMapper.selectAllBlogs();
-        List<BlogAndImageModel> list = new ArrayList<>();
-        for (BlogDo blogDo:blogDos) {
-            BlogAndImageModel blogAndImageModel = new BlogAndImageModel();
-            blogAndImageModel.setBid(blogDo.getBid());
-            blogAndImageModel.setTitle(blogDo.getTitle());
-            blogAndImageModel.setContent(blogDo.getContent());
-            blogAndImageModel.setDescription(blogDo.getDescription());
-            blogAndImageModel.setStatus(blogDo.getStatus());
-            blogAndImageModel.setTags(blogDo.getTags());
-            blogAndImageModel.setCreated(blogDo.getCreated());
-            //根据blogid查询图片
-            ImagesDo imagesDo = imagesDoMapper.selectByBlogId(blogDo.getBid());
-            blogAndImageModel.setTitleUrl(imagesDo.getTitleUrl());
-            blogAndImageModel.setAllowComment(blogDo.getAllowComment());
-            //添加list集合中
-            list.add(blogAndImageModel);
-        }
-        return list;
+
+        return blogDos;
     }
 
     /**

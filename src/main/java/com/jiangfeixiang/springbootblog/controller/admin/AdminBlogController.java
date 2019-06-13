@@ -1,9 +1,14 @@
 package com.jiangfeixiang.springbootblog.controller.admin;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.jiangfeixiang.springbootblog.aop.LogAnno;
 import com.jiangfeixiang.springbootblog.common.CommonReturnType;
+import com.jiangfeixiang.springbootblog.entity.BlogDo;
+import com.jiangfeixiang.springbootblog.entity.ImagesDo;
 import com.jiangfeixiang.springbootblog.service.BlogService;
+import com.jiangfeixiang.springbootblog.service.ImagesService;
 import com.jiangfeixiang.springbootblog.service.model.BlogAndImageModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -38,6 +44,9 @@ public class AdminBlogController {
     @Autowired
     private BlogService blogService;
 
+    @Autowired
+    private ImagesService imagesService;
+
     /**
      * 源文件拓展名称
      */
@@ -47,6 +56,7 @@ public class AdminBlogController {
      * @param file
      * @return
      */
+    @LogAnno(operateType = "上传文件")
     @RequestMapping(value = "/uploadImage",method = RequestMethod.POST)
     @ResponseBody
     public CommonReturnType uploadImage(@RequestParam(value="title_Url") MultipartFile file) {
@@ -80,6 +90,7 @@ public class AdminBlogController {
      * @param session
      * @return
      */
+    @LogAnno(operateType = "添加博客")
     @RequestMapping(value = "/insertBlog",method = RequestMethod.POST)
     @ResponseBody
     public CommonReturnType insertBlog(@Valid @RequestParam("title") String title,
@@ -115,14 +126,34 @@ public class AdminBlogController {
      * @updateTime
      * @throws
      */
+    @LogAnno(operateType = "查询博客")
     @RequestMapping(value = "/getAllContents",method = RequestMethod.GET)
     @ResponseBody
     //@Cacheable(value="blog-key")
     public CommonReturnType getAllContents(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
                                            @RequestParam(value = "pageSize",defaultValue = "3") Integer pageSize){
-        PageHelper.startPage(pageNum, pageSize);
-        List<BlogAndImageModel> blogAndImageModelPageInfo = blogService.selectAllBlogs();
-        PageInfo<BlogAndImageModel> pageInfo=new PageInfo<>(blogAndImageModelPageInfo);
+        PageHelper.startPage(pageNum, pageSize, true);
+        List<BlogDo> blogDos = blogService.selectAllBlogs();
+        PageInfo pageInfo = new PageInfo(blogDos);
+
+        List<BlogAndImageModel> list = new ArrayList<>();
+        for (BlogDo blogDo:blogDos) {
+            BlogAndImageModel blogAndImageModel = new BlogAndImageModel();
+            blogAndImageModel.setBid(blogDo.getBid());
+            blogAndImageModel.setTitle(blogDo.getTitle());
+            blogAndImageModel.setContent(blogDo.getContent());
+            blogAndImageModel.setDescription(blogDo.getDescription());
+            blogAndImageModel.setStatus(blogDo.getStatus());
+            blogAndImageModel.setTags(blogDo.getTags());
+            blogAndImageModel.setCreated(blogDo.getCreated());
+            //根据blogid查询图片
+            ImagesDo imagesDo = imagesService.selectByBlogId(blogDo.getBid());
+            blogAndImageModel.setTitleUrl(imagesDo.getTitleUrl());
+            blogAndImageModel.setAllowComment(blogDo.getAllowComment());
+            //添加list集合中
+            list.add(blogAndImageModel);
+        }
+        pageInfo.setList(list);
         return CommonReturnType.success(pageInfo);
     }
 
@@ -134,6 +165,7 @@ public class AdminBlogController {
      * @updateTime
      * @throws
      */
+    @LogAnno(operateType = "根据id查询")
     @RequestMapping(value = "/getById",method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType getByContentId(Integer id){
@@ -151,6 +183,7 @@ public class AdminBlogController {
      * @updateTime
      * @throws
      */
+    @LogAnno(operateType = "根据id删除")
     @RequestMapping(value = "/deleteById",method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType deleteById(Integer id){
@@ -170,6 +203,7 @@ public class AdminBlogController {
      * @param session
      * @return
      */
+    @LogAnno(operateType = "更新博客")
     @RequestMapping(value = "/updateBlog",method = RequestMethod.POST)
     @ResponseBody
     public CommonReturnType updateBlog( @RequestParam("bid") Integer bid,

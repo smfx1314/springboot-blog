@@ -1,5 +1,6 @@
 package com.jiangfeixiang.springbootblog.controller.admin;
 
+import com.jiangfeixiang.springbootblog.aop.LogAnno;
 import com.jiangfeixiang.springbootblog.common.CommonReturnType;
 import com.jiangfeixiang.springbootblog.service.model.UserAndPassword;
 import com.jiangfeixiang.springbootblog.entity.UserDo;
@@ -42,6 +43,7 @@ public class UserController {
      * @param
      * @return
      */
+    @LogAnno(operateType = "注册用户")
     @RequestMapping("/insertUser")
     @ResponseBody
     public CommonReturnType insertUser(@Valid @RequestParam("username") String username,
@@ -88,6 +90,7 @@ public class UserController {
      * @param password
      * @return
      */
+    @LogAnno(operateType = "用户登录")
     @RequestMapping("/login")
     @ResponseBody
     public CommonReturnType login(@RequestParam("username") String username,

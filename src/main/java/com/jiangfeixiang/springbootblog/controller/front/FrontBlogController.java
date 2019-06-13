@@ -42,10 +42,10 @@ public class FrontBlogController {
     @ResponseBody
     public CommonReturnType getAllContents(@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
                                            @RequestParam(value = "pageSize",defaultValue = "3") int pageSize){
-        PageHelper.startPage(pageNum, pageSize);
+       /* PageHelper.startPage(pageNum, pageSize);
         List<BlogAndImageModel> blogAndImageModelPageInfo = blogService.selectAllBlogs();
-        PageInfo<BlogAndImageModel> pageInfo=new PageInfo<>(blogAndImageModelPageInfo);
-        return CommonReturnType.success(pageInfo);
+        PageInfo<BlogAndImageModel> pageInfo=new PageInfo<>(blogAndImageModelPageInfo);*/
+        return CommonReturnType.success();
     }
 
     /**
