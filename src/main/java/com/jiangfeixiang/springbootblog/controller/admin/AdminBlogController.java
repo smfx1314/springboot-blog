@@ -132,7 +132,7 @@ public class AdminBlogController {
     //@Cacheable(value="blog-key")
     public CommonReturnType getAllContents(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
                                            @RequestParam(value = "pageSize",defaultValue = "3") Integer pageSize){
-        PageHelper.startPage(pageNum, pageSize, true);
+        PageHelper.startPage(pageNum, pageSize);
         List<BlogDo> blogDos = blogService.selectAllBlogs();
         PageInfo pageInfo = new PageInfo(blogDos);
 

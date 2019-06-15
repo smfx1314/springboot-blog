@@ -120,4 +120,28 @@ public class BlogServiceImpl implements BlogService {
         imagesDoMapper.updateByPrimaryKeySelective(imagesDo);
         return 0;
     }
+
+    /**
+     * 查询标签
+     * @return
+     */
+    @Override
+    public List<BlogDo> selectAllTag() {
+        List<BlogDo> blogDos = blogsDoMapper.selectAllTag();
+        if (blogDos !=null){
+            return blogDos;
+        }
+        return null;
+    }
+
+    /**
+     * 根据标签查询
+     * @param tag
+     * @return
+     */
+    @Override
+    public List<BlogDo> selectByTag(String tag) {
+        List<BlogDo> blogDos = blogsDoMapper.selectByTag(tag);
+        return blogDos;
+    }
 }

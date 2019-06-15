@@ -56,4 +56,16 @@ public interface BlogService {
      * @return
      */
     int updateByPrimaryKeySelective(BlogAndImageModel blogAndImageModel);
+
+    /**
+     * 根据标签查询
+     */
+    List<BlogDo> selectAllTag();
+
+    /**
+     * 根据标签查询
+     * @param tag
+     * @return
+     */
+    List<BlogDo> selectByTag(String tag);
 }
