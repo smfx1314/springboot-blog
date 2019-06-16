@@ -73,6 +73,7 @@ public class UserController {
      * @param username
      * @return
      */
+    @LogAnno(operateType = "校验用户名")
     @RequestMapping("/checkUsername")
     @ResponseBody
     public CommonReturnType checkUsername(String username){
