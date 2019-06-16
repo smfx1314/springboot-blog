@@ -136,7 +136,7 @@
 #### 脚印
 + [简书](https://www.jianshu.com/u/31ccce39a24b)
 + [博客园](https://www.cnblogs.com/smfx1314/)
-+ [码云](https://gitee.com/smfx1314)
++ [码云](https://gitee.com/smfx1314/springboot-blog)
 
 ### 后记
 + 本人也是一直边上班边自学java，
