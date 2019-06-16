@@ -2,6 +2,8 @@ package com.jiangfeixiang.springbootblog.service;
 
 import com.jiangfeixiang.springbootblog.entity.NoticeDo;
 
+import java.util.List;
+
 /**
  * @ProjectName: springboot-blog
  * @Package: com.jiangfeixiang.springbootblog.service
@@ -13,8 +15,21 @@ import com.jiangfeixiang.springbootblog.entity.NoticeDo;
  */
 public interface NoticeService {
     /**
-     * 查询一条数据，根据最新时间
+     * 查询一条最新公告，根据最新时间
      * @return
      */
     NoticeDo selectNotice();
+
+    /**
+     * 添加公告
+     * @param record
+     * @return
+     */
+    int insertSelective(NoticeDo record);
+
+    /**
+     * 查询所有公告
+     * @return
+     */
+    List<NoticeDo> selectAllNotice();
 }

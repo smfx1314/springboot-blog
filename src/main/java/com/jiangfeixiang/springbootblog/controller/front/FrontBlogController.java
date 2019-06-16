@@ -124,6 +124,10 @@ public class FrontBlogController {
     }*/
 
 
+    /**
+     * 查询公告
+     * @return
+     */
     @RequestMapping(value = "/selectNotice",method = RequestMethod.GET)
     @ResponseBody
    public CommonReturnType selectNotice(){
