@@ -10,7 +10,9 @@ import com.jiangfeixiang.springbootblog.service.BlogService;
 import com.jiangfeixiang.springbootblog.service.ImagesService;
 import com.jiangfeixiang.springbootblog.service.NoticeService;
 import com.jiangfeixiang.springbootblog.service.model.BlogAndImageModel;
+import com.jiangfeixiang.springbootblog.util.BeanUtilsModel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -59,13 +61,7 @@ public class FrontBlogController {
         List<BlogAndImageModel> list = new ArrayList<>();
         for (BlogDo blogDo:blogDos) {
             BlogAndImageModel blogAndImageModel = new BlogAndImageModel();
-            blogAndImageModel.setBid(blogDo.getBid());
-            blogAndImageModel.setTitle(blogDo.getTitle());
-            blogAndImageModel.setContent(blogDo.getContent());
-            blogAndImageModel.setDescription(blogDo.getDescription());
-            blogAndImageModel.setStatus(blogDo.getStatus());
-            blogAndImageModel.setTags(blogDo.getTags());
-            blogAndImageModel.setCreated(blogDo.getCreated());
+            BeanUtils.copyProperties(blogDo, blogAndImageModel);
             //根据blogid查询图片
             ImagesDo imagesDo = imagesService.selectByBlogId(blogDo.getBid());
             blogAndImageModel.setTitleUrl(imagesDo.getTitleUrl());

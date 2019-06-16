@@ -57,8 +57,8 @@ public class CommonAspect {
         String url = request.getRequestURL().toString();
         logsDo.setOperurl(url);
         //请求参数
-        String reqParam =AopContextUtil.preHandle(joinPoint,request);
-        logsDo.setReqparam(reqParam);
+       /* String reqParam =AopContextUtil.preHandle(joinPoint,request);
+        logsDo.setReqparam(reqParam);*/
         // 1.方法执行前的处理，相当于前置通知
         // 获取方法签名
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();

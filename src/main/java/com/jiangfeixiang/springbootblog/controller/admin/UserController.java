@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * @ProjectName: springboot-blog
@@ -27,10 +26,11 @@ import java.util.UUID;
  * @email: 1016767658@qq.com
  * @Description: User控制l类
  * @Date: 2019/4/23/0023 22:17
+ * 下面这种方式跨域也可以
+ * @CrossOrigin(allowCredentials = "true",allowedHeaders = "*")
  */
 @Controller
 @RequestMapping("/user")
-//@CrossOrigin(allowCredentials = "true",allowedHeaders = "*")
 public class UserController {
     private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
