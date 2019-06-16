@@ -35,14 +35,18 @@
      + 留言
        + 留言列表
        + 留言详情
+       + 导出Excel
      + 日志
        + 管理员操作日志记录列表
        
     部分页面截图
     ![文章管理](https://upload-images.jianshu.io/upload_images/8504906-d27792cf2b4654b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-   
+    
+    ![留言管理](https://upload-images.jianshu.io/upload_images/8504906-3aa97ba610e3958d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+    
     ![写博客](https://upload-images.jianshu.io/upload_images/8504906-ccd29345bc920bc7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
+    
+    ![日志操作](https://upload-images.jianshu.io/upload_images/8504906-2757bfe283a10dbf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 #### 打赏代码
 ```
 <script>
@@ -85,7 +89,7 @@
 + 更改邮件用户名以及密码，发送者等相关配置
 + 创建对应数据库以及更改数据库地址
 + sql导入创建表数据
-+ 克隆web页面(请看上面介绍中的地址)
++ 克隆[web页面](https://github.com/smfx1314/springbootblog-web)(请看上面介绍中的地址)
 + 直接进入login登陆页面(用户名：smfx1314 密码：123456)
 + 或者运行register注册页面，注册账户之后登陆即可
 
@@ -106,12 +110,11 @@
 
 #### 问题总结
 + [Ajax请求回调函数没有被调用](https://blog.csdn.net/molashaonian/article/details/52966329)
-+ 跨域问题
++ 跨域问题(解决)
 + 前端页面跳转session丢失问题
-+ mysql版本的不同导致部分问题
-+ 嵌套查询分页问题
-
-
++ mysql版本的不同导致部分问题(解决)
++ 嵌套查询分页问题(解决)
++ 页面卡主，多次点击多次执行问题
 
 #### 后续更新计划
 + 写博客页面尝试更改为Markdown(已经完善)
@@ -135,7 +138,8 @@
 + [博客园](https://www.cnblogs.com/smfx1314/)
 + [码云](https://gitee.com/smfx1314)
 
-#### 后记
-本人也是一直边上班边自学java，不过一直没有找到合适的工作。不知道这个算入门了吗？
+### 后记
++ 本人也是一直边上班边自学java，
+以上全部由本人自己完成。不知道这技术算入门了吗？
 
 
