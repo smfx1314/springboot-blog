@@ -44,7 +44,7 @@
                selectByExampleQueryId="false">
 
         </table>-->
-        <table tableName="t_logs" domainObjectName="LogsDo"
+        <table tableName="t_notice" domainObjectName="NoticeDo"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

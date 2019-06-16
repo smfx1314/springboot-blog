@@ -35,31 +35,30 @@ public class CommonReturnType implements Serializable {
      * @param
      */
      private CommonReturnType(Integer code,String status,Object data) {
-        this.status = status;
         this.code = code;
+         this.status=status;
         this.data = data;
     }
 
     /**
      * 构造函数:失败并返回提示信息
-     * @param status
      * @param code
      */
-    public CommonReturnType(Integer code, String status){
-        this.status=status;
+    public CommonReturnType(Integer code,String status){
         this.code=code;
+        this.status=status;
     }
 
     /**
      * 构造函数:异常并返回异常信息
-     * @param status
      * @param code
      */
-    public CommonReturnType(Integer code, String status,String msg){
-        this.status=status;
+    public CommonReturnType(Integer code,String status,String msg){
         this.code=code;
+        this.status=status;
         this.msg=msg;
     }
+
 
     /**
      * 成功并返回的数据
@@ -94,7 +93,7 @@ public class CommonReturnType implements Serializable {
      */
     public static CommonReturnType fail(String msg) {
 
-        return new CommonReturnType(ResponseCode.ERROR.getCode(),ResponseCode.ERROR.getDesc(),msg);
+        return new CommonReturnType(ResponseCode.ERROR.getCode(),msg);
     }
 
     public Integer getCode() {

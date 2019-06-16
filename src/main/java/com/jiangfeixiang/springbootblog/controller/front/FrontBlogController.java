@@ -5,8 +5,10 @@ import com.github.pagehelper.PageInfo;
 import com.jiangfeixiang.springbootblog.common.CommonReturnType;
 import com.jiangfeixiang.springbootblog.entity.BlogDo;
 import com.jiangfeixiang.springbootblog.entity.ImagesDo;
+import com.jiangfeixiang.springbootblog.entity.NoticeDo;
 import com.jiangfeixiang.springbootblog.service.BlogService;
 import com.jiangfeixiang.springbootblog.service.ImagesService;
+import com.jiangfeixiang.springbootblog.service.NoticeService;
 import com.jiangfeixiang.springbootblog.service.model.BlogAndImageModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,9 @@ public class FrontBlogController {
 
     @Autowired
     private ImagesService imagesService;
+
+    @Autowired
+    private NoticeService noticeService;
 
     /**
      * @title
@@ -105,7 +110,7 @@ public class FrontBlogController {
 
     /**
      * 根据tag查询
-     * @param tag
+     * @param
      * @return
      */
    /* @RequestMapping(value = "/selectByTag",method = RequestMethod.GET)
@@ -117,4 +122,15 @@ public class FrontBlogController {
         }
         return CommonReturnType.fail("未查询到数据");
     }*/
+
+
+    @RequestMapping(value = "/selectNotice",method = RequestMethod.GET)
+    @ResponseBody
+   public CommonReturnType selectNotice(){
+        NoticeDo noticeDo = noticeService.selectNotice();
+        if (noticeDo !=null){
+            return CommonReturnType.success(noticeDo);
+        }
+        return CommonReturnType.fail("未查询到数据");
+   }
 }
