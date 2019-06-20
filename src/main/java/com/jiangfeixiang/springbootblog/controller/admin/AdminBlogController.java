@@ -9,8 +9,11 @@ import com.jiangfeixiang.springbootblog.entity.ImagesDo;
 import com.jiangfeixiang.springbootblog.service.BlogService;
 import com.jiangfeixiang.springbootblog.service.ImagesService;
 import com.jiangfeixiang.springbootblog.service.model.BlogAndImageModel;
+import com.jiangfeixiang.springbootblog.service.model.UserAndPassword;
+import com.jiangfeixiang.springbootblog.util.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -61,20 +64,9 @@ public class AdminBlogController {
     public CommonReturnType uploadImage(@RequestParam(value="title_Url") MultipartFile file) {
         //保存图片的路径
         String path = "M:\\upload";
+        //上传图片
+        FileUtils.upload(file,path);
         //String path = "/usr/local/upload";
-        //获取原始图片的拓展名
-        String originalFilename = file.getOriginalFilename();
-        //UUID+源文件名称随机生成新的文件名
-        newFileName = UUID.randomUUID()+ originalFilename;
-        //封装上传文件位置的全路径
-        File targetFile  = new File(path,newFileName);
-        //保存文件
-        try {
-            file.transferTo(targetFile );
-            logger.info("上传图片成功");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return CommonReturnType.success();
     }
 
@@ -101,6 +93,7 @@ public class AdminBlogController {
                                        HttpSession session) {
 
         BlogAndImageModel blogAndImageModel = new BlogAndImageModel();
+        blogAndImageModel.setTitleUrl(newFileName);
         blogAndImageModel.setTitle(title);
         blogAndImageModel.setContent(content);
         blogAndImageModel.setDescription(description);
@@ -108,9 +101,8 @@ public class AdminBlogController {
         blogAndImageModel.setStatus(status);
         blogAndImageModel.setTags(tags);
         blogAndImageModel.setAllowComment(allowcomment);
-        blogAndImageModel.setTitleUrl(newFileName);
         //获取用户id
-        /*UserAndPassword login_user = (UserAndPassword) session.getAttribute("LOGIN_USER");
+        /*UserAndPassword login_user = (UserAndPassword) session.getAttribute("user");
         blogAndImageModel.setAuthorId(login_user.getUid());*/
         blogService.insertSelective(blogAndImageModel);
 
@@ -128,7 +120,6 @@ public class AdminBlogController {
     @LogAnno(operateType = "查询博客")
     @RequestMapping(value = "/getAllContents",method = RequestMethod.GET)
     @ResponseBody
-    //@Cacheable(value="blog-key")
     public CommonReturnType getAllContents(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
                                            @RequestParam(value = "pageSize",defaultValue = "3") Integer pageSize){
         PageHelper.startPage(pageNum, pageSize);

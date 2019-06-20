@@ -102,6 +102,7 @@ public class UserController {
         String md5Password = MyMD5Util.md5Password(password);
         UserAndPassword userAndPassword = userService.login(username);
         if (md5Password.equals(userAndPassword.getPassword())){
+            session.setAttribute("user",userAndPassword);
             return CommonReturnType.success();
         }
         return CommonReturnType.fail("用户名或密码不正确");

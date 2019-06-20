@@ -62,12 +62,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- 阿里巴巴druid -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>1.1.10</version>
-        </dependency>
 
         <!-- 自动配置get/set -->
         <dependency>
@@ -76,19 +70,13 @@
             <optional>true</optional>
         </dependency>
 
-        <!--校验-->
-        <!--<dependency>
-            <groupId>org.hibernate.validator</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>6.0.13.Final</version>
-        </dependency>-->
-
         <!-- kaptcha验证码 -->
         <dependency>
             <groupId>com.github.penggle</groupId>
             <artifactId>kaptcha</artifactId>
             <version>2.3.2</version>
         </dependency>
+
         <!-- 测试 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -115,21 +103,11 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.5</version>
         </dependency>
-        <!--mybatis-pageable分页-->
+
+        <!--共享session-->
         <dependency>
-            <groupId>com.gitee.hengboy</groupId>
-            <artifactId>spring-boot-starter-mybatis-pageable</artifactId>
-            <version>1.0.6.RELEASE</version>
-        </dependency>
-       <!-- <dependency>
-            <groupId>com.gitee.hengboy</groupId>
-            <artifactId>spring-boot-starter-mybatis-pageable</artifactId>
-            <version>1.0.6.RELEASE</version>
-        </dependency>-->
-        <!--邮件-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
         </dependency>
         <!--alibaba easyexcel-->
         <dependency>

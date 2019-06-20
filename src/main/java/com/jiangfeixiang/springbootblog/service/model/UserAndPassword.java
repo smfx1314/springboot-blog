@@ -3,6 +3,7 @@ package com.jiangfeixiang.springbootblog.service.model;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Date;
  * @Date: 2019/6/7/0007 14:44
  */
 @Data
-public class UserAndPassword {
+public class UserAndPassword implements Serializable {
     private Integer uid;
     private String username;
     private String password;

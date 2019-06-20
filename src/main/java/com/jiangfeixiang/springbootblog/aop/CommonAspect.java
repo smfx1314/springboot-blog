@@ -1,6 +1,7 @@
 package com.jiangfeixiang.springbootblog.aop;
 
 import com.jiangfeixiang.springbootblog.entity.LogsDo;
+import com.jiangfeixiang.springbootblog.entity.UserDo;
 import com.jiangfeixiang.springbootblog.service.LogsService;
 import com.jiangfeixiang.springbootblog.util.AopContextUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
 import java.util.Date;
 
@@ -44,7 +46,7 @@ public class CommonAspect {
      * ProceedingJoinPoint仅支持@Around
      */
     @AfterReturning("log()")
-    public void saveOperation(JoinPoint joinPoint ){
+    public void saveOperation(JoinPoint joinPoint){
         log.info("---------------接口日志记录---------------");
         // 创建一个日志对象(准备记录日志)
         LogsDo logsDo = new LogsDo();
@@ -73,7 +75,8 @@ public class CommonAspect {
         logsDo.setOpertype(operateType);
         }
         //TODO 设置操作人，从session中获取，这里简化了一下，写死了。
-
+        /*UserDo user = (UserDo) HttpSession.class.getClassLoader().
+        logsDo.setUsername(user.getUsername());*/
         // 设置操作日期
         logsDo.setOpertime(new Date());
         logsService.insertSelective(logsDo);
