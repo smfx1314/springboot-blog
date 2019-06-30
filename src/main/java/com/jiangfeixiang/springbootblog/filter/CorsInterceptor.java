@@ -17,7 +17,7 @@ import java.io.IOException;
  * @Date: 2019/6/8/0008 8:37
  */
 @Component
-public class AuthorityInterceptor implements Filter {
+public class CorsInterceptor implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

@@ -47,7 +47,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Autowired
     private RedisTemplate redisTemplate;
-
+    private final String KEY_PREFIX = "blog_";
     /**
      * 插入博客
      * @param blogAndImageModel
@@ -72,19 +72,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public List<BlogDo> selectAllBlogs() {
-        ValueOperations<String,List<BlogDo>> valueOperations = redisTemplate.opsForValue();
-        //如果缓存存在
-        String key = "blog_";
-        boolean hasKey = redisTemplate.hasKey(key);
-        if (hasKey) {
-            List<BlogDo> blogDos = valueOperations.get(key);
-            log.info("selectAllBlogs"+blogDos);
-            return blogDos;
-        }
-        //如果换成不存在从数据库查询
         List<BlogDo> blogDos = blogsDoMapper.selectAllBlogs();
-        //存入缓存中.
-        valueOperations.set(key, blogDos, 10, TimeUnit.SECONDS);
         return blogDos;
     }
 
@@ -99,7 +87,7 @@ public class BlogServiceImpl implements BlogService {
     public BlogAndImageModel getByContentId(Integer id) {
         ValueOperations<String,BlogDo> valueOperations = redisTemplate.opsForValue();
         //如果缓存存在
-        String key = "blog_"+id;
+        String key = KEY_PREFIX+id;
         boolean hasKey = redisTemplate.hasKey(key);
         if (hasKey) {
             BlogDo blogDo = valueOperations.get(key);
@@ -140,7 +128,7 @@ public class BlogServiceImpl implements BlogService {
         blogsDoMapper.deleteByPrimaryKey(id);
         imagesDoMapper.deleteByBlogId(id);
         //如果缓存中存在，移除。
-        String key = "blog_"+id;
+        String key = KEY_PREFIX + id;
         boolean hasKey = redisTemplate.hasKey(key);
         if (hasKey) {
             redisTemplate.delete(key);
@@ -166,7 +154,7 @@ public class BlogServiceImpl implements BlogService {
         imagesDoMapper.updateByPrimaryKeySelective(imagesDo);
 
         //如果缓存中存在，移除。
-        String key = "blog_"+blogAndImageModel.getBid();
+        String key = KEY_PREFIX+blogDo.getBid();
         boolean hasKey = redisTemplate.hasKey(key);
         if (hasKey) {
             redisTemplate.delete(key);

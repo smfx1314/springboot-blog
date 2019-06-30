@@ -22,9 +22,9 @@ spring:
   datasource:
     #driver-class-name: com.mysql.jdbc.Driver
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/springboot-blog?characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false
-    name: springboot-blog
-    password: 1234
+    url: jdbc:mysql://148.70.185.3:3306/springbootblog?characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false
+    name: springbootblog
+    password: 09120127Mfx521..
     username: root
     # 连接池配置
     type: com.alibaba.druid.pool.DruidDataSource

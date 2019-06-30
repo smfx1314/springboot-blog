@@ -84,23 +84,9 @@ public class AdminBlogController {
     @LogAnno(operateType = "添加博客")
     @RequestMapping(value = "/insertBlog",method = RequestMethod.POST)
     @ResponseBody
-    public CommonReturnType insertBlog(@Valid @RequestParam("title") String title,
-                                       @Valid @RequestParam("content") String content,
-                                       @Valid @RequestParam("description") String description,
-                                       @Valid @RequestParam("status") Integer status,
-                                       @Valid @RequestParam("tags") String tags,
-                                       @Valid @RequestParam("allowcomment") Integer allowcomment,
-                                       HttpSession session) {
-
-        BlogAndImageModel blogAndImageModel = new BlogAndImageModel();
+    public CommonReturnType insertBlog(BlogAndImageModel blogAndImageModel,HttpSession session) {
         blogAndImageModel.setTitleUrl(newFileName);
-        blogAndImageModel.setTitle(title);
-        blogAndImageModel.setContent(content);
-        blogAndImageModel.setDescription(description);
         blogAndImageModel.setCreated(new Date());
-        blogAndImageModel.setStatus(status);
-        blogAndImageModel.setTags(tags);
-        blogAndImageModel.setAllowComment(allowcomment);
         //获取用户id
         /*UserAndPassword login_user = (UserAndPassword) session.getAttribute("user");
         blogAndImageModel.setAuthorId(login_user.getUid());*/
