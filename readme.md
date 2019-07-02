@@ -10,7 +10,7 @@
 #### 参考
 + 本博客前后台模板主要参考[这位博主](http://www.dingyinwu.com/index.html)的模板，点击[网盘下载提取码: bi8h](https://pan.baidu.com/s/14cRvKkbERP9hOOFFY-Cgpg)即可。  
 + 另外我觉得这位[博主](http://13blog.site/)的页面效果也不错，源码请点击[这里](https://github.com/smfx1314/pinghsu)  
-#### 本博客[web页面](https://github.com/smfx1314/springboot-blog-web)
+#### 本博客[web页面](https://github.com/smfx1314/springbootblog-web)
 #### 大纲
 + 前台
     + 首页
@@ -92,7 +92,7 @@
 + 创建对应数据库以及更改数据库地址
 + 配置Redis
 + sql导入创建表数据
-+ 克隆[web页面](https://github.com/smfx1314/springbootblog-web)(请看上面介绍中的地址)
++ 克隆[web页面](https://github.com/smfx1314/springbootblog-web)
 + 直接进入login登陆页面(用户名：smfx1314 密码：123456)
 + 或者运行register注册页面，注册账户之后登陆即可
 
