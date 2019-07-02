@@ -48,11 +48,11 @@ public class AdminBlogController {
 
     @Autowired
     private ImagesService imagesService;
-
     /**
      * 源文件拓展名称
      */
-    String newFileName=null;
+    private static String newFileName;
+
     /**
      * 上传文件
      * @param file
@@ -64,20 +64,28 @@ public class AdminBlogController {
     public CommonReturnType uploadImage(@RequestParam(value="title_Url") MultipartFile file) {
         //保存图片的路径
         String path = "M:\\upload";
-        //上传图片
-        FileUtils.upload(file,path);
         //String path = "/usr/local/upload";
+        //上传图片
+        //获取原始图片的拓展名
+        String originalFilename = file.getOriginalFilename();
+        //UUID+源文件名称随机生成新的文件名
+        newFileName = UUID.randomUUID()+ originalFilename;
+        //封装上传文件位置的全路径
+        File targetFile  = new File(path,newFileName);
+        try {
+            //保存文件
+            file.transferTo(targetFile );
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return CommonReturnType.success();
     }
 
     /**
      * 插入blog
-     * @param title
-     * @param content
-     * @param description
-     * @param status
-     * @param tags
-     * @param allowcomment
      * @param session
      * @return
      */
