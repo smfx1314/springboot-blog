@@ -53,7 +53,7 @@ public class FrontBlogController {
     @RequestMapping(value = "/getAllBlog",method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType getAllContents(@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
-                                           @RequestParam(value = "pageSize",defaultValue = "3") int pageSize){
+                                           @RequestParam(value = "pageSize",defaultValue = "8") int pageSize){
         PageHelper.startPage(pageNum, pageSize);
         List<BlogDo> blogDos = blogService.selectAllBlogs();
         PageInfo pageInfo = new PageInfo(blogDos);

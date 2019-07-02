@@ -115,7 +115,7 @@ public class AdminBlogController {
     @RequestMapping(value = "/getAllContents",method = RequestMethod.GET)
     @ResponseBody
     public CommonReturnType getAllContents(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
-                                           @RequestParam(value = "pageSize",defaultValue = "3") Integer pageSize){
+                                           @RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize){
         PageHelper.startPage(pageNum, pageSize);
         List<BlogDo> blogDos = blogService.selectAllBlogs();
         PageInfo pageInfo = new PageInfo(blogDos);
