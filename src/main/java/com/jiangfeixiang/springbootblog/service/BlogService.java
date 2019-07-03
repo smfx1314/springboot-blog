@@ -42,7 +42,7 @@ public interface BlogService {
      * @param title
      * @return
      */
-    List<BlogAndImageModel> getBlogByFuzzyQuery(String title);
+    List<BlogDo> getBlogByFuzzyQuery(String title);
 
     /**
      * 删除

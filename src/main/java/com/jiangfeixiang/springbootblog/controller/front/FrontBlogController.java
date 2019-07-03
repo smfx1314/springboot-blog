@@ -75,20 +75,26 @@ public class FrontBlogController {
 
     /**
      * 模糊查询
-     * @param pageNum
      * @param title
      * @return
      */
-    /*@RequestMapping(value = "/getBlogByFuzzyQuery",method = RequestMethod.GET)
+    @RequestMapping(value = "/getBlogByFuzzyQuery",method = RequestMethod.GET)
     @ResponseBody
-    public CommonReturnType getBlogByFuzzyQuery(@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
-                                                @RequestParam(value = "keyword")String title){
-        PageHelper.startPage(pageNum, 20);
-        List<BlogDo> blogByFuzzyQuery = blogService.getBlogByFuzzyQuery(title);
-        System.out.println(blogByFuzzyQuery);
-        PageInfo<BlogDo> pageInfo=new PageInfo<>(blogByFuzzyQuery);
-        return CommonReturnType.success(pageInfo);
-    }*/
+    public CommonReturnType getBlogByFuzzyQuery(@RequestParam(value = "keyword")String title){
+        //根据标题查询
+        List<BlogDo> blogDos = blogService.getBlogByFuzzyQuery(title);
+        List<BlogAndImageModel> list = new ArrayList<>();
+        for (BlogDo blogDo:blogDos) {
+            BlogAndImageModel blogAndImageModel = new BlogAndImageModel();
+            BeanUtils.copyProperties(blogDo, blogAndImageModel);
+            //根据blogid查询图片
+            ImagesDo imagesDo = imagesService.selectByBlogId(blogDo.getBid());
+            blogAndImageModel.setTitleUrl(imagesDo.getTitleUrl());
+            //添加list集合中
+            list.add(blogAndImageModel);
+        }
+        return CommonReturnType.success(list);
+    }
 
     /**
      * 查询标签

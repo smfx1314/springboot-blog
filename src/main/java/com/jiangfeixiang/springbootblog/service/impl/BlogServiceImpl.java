@@ -19,9 +19,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -47,6 +44,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Autowired
     private RedisTemplate redisTemplate;
+    //缓存key
     private final String KEY_PREFIX = "blog_";
     /**
      * 插入博客
@@ -113,7 +111,11 @@ public class BlogServiceImpl implements BlogService {
      * @return
      */
     @Override
-    public List<BlogAndImageModel> getBlogByFuzzyQuery(String title) {
+    public List<BlogDo> getBlogByFuzzyQuery(String title) {
+        List<BlogDo> blogDos = blogsDoMapper.getBlogByFuzzyQuery(title);
+        if (blogDos !=null){
+            return blogDos;
+        }
         return null;
     }
 
