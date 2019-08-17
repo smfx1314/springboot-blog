@@ -1,5 +1,4 @@
 ### 简博客—开源免费个人博客
-(安徽管局暂时不能备案，等待备案通过，正常访问)
 ![首页](https://upload-images.jianshu.io/upload_images/8504906-d1bf5a79fa7a6382.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 #### 概述
