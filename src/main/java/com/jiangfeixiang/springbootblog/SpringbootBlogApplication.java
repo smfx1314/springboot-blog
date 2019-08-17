@@ -16,7 +16,6 @@ import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
 @MapperScan("com.jiangfeixiang.springbootblog.dao")
-@EnableCaching
 public class SpringbootBlogApplication {
 
     public static void main(String[] args) {

@@ -1,8 +1,5 @@
 package com.jiangfeixiang.springbootblog.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.jiangfeixiang.springbootblog.common.CommonReturnType;
 import com.jiangfeixiang.springbootblog.dao.BlogDoMapper;
 import com.jiangfeixiang.springbootblog.dao.ImagesDoMapper;
 import com.jiangfeixiang.springbootblog.entity.BlogDo;
@@ -11,16 +8,10 @@ import com.jiangfeixiang.springbootblog.service.BlogService;
 import com.jiangfeixiang.springbootblog.service.model.BlogAndImageModel;
 import com.jiangfeixiang.springbootblog.util.BeanUtilsModel;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @ProjectName: springboot-blog
@@ -42,10 +33,6 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     private ImagesDoMapper imagesDoMapper;
 
-    @Autowired
-    private RedisTemplate redisTemplate;
-    //缓存key
-    private final String KEY_PREFIX = "blog_";
     /**
      * 插入博客
      * @param blogAndImageModel
@@ -83,23 +70,10 @@ public class BlogServiceImpl implements BlogService {
      */
     @Override
     public BlogAndImageModel getByContentId(Integer id) {
-        ValueOperations<String,BlogDo> valueOperations = redisTemplate.opsForValue();
-        //如果缓存存在
-        String key = KEY_PREFIX+id;
-        boolean hasKey = redisTemplate.hasKey(key);
-        if (hasKey) {
-            BlogDo blogDo = valueOperations.get(key);
-            log.info("getByContentId() : 从缓存中获取了Blog " + blogDo.toString());
-            ImagesDo imagesDo = imagesDoMapper.selectByBlogId(blogDo.getBid());
-            BlogAndImageModel blogAndImageModel = BeanUtilsModel.imageAndBlogModel(imagesDo, blogDo);
-            return blogAndImageModel;
-        }
-        //如果缓存不存在，从数据库查询
+        //从数据库查询
         BlogDo blogDo = blogsDoMapper.selectByPrimaryKey(id);
         ImagesDo imagesDo = imagesDoMapper.selectByBlogId(blogDo.getBid());
         BlogAndImageModel blogAndImageModel = BeanUtilsModel.imageAndBlogModel(imagesDo, blogDo);
-        //存入缓存中.
-        valueOperations.set(key, blogDo, 10, TimeUnit.SECONDS);
         return blogAndImageModel;
 
     }
@@ -129,13 +103,6 @@ public class BlogServiceImpl implements BlogService {
         //删除DB中的数据
         blogsDoMapper.deleteByPrimaryKey(id);
         imagesDoMapper.deleteByBlogId(id);
-        //如果缓存中存在，移除。
-        String key = KEY_PREFIX + id;
-        boolean hasKey = redisTemplate.hasKey(key);
-        if (hasKey) {
-            redisTemplate.delete(key);
-            log.info("deleteById 从缓存中移除了 ID:" + id);
-        }
     }
 
     /**
@@ -155,13 +122,6 @@ public class BlogServiceImpl implements BlogService {
         ImagesDo imagesDo = BeanUtilsModel.modelToImage(blogAndImageModel);
         imagesDoMapper.updateByPrimaryKeySelective(imagesDo);
 
-        //如果缓存中存在，移除。
-        String key = KEY_PREFIX+blogDo.getBid();
-        boolean hasKey = redisTemplate.hasKey(key);
-        if (hasKey) {
-            redisTemplate.delete(key);
-            log.info("updateByPrimaryKeySelective 从缓存中移除了" + blogDo.toString());
-        }
         return 0;
     }
 

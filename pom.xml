@@ -19,11 +19,6 @@
     </properties>
 
     <dependencies>
-        <!--Redis-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
         <!--邮件处理-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -104,11 +99,6 @@
             <version>1.2.5</version>
         </dependency>
 
-        <!--共享session-->
-        <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-data-redis</artifactId>
-        </dependency>
         <!--alibaba easyexcel-->
         <dependency>
             <groupId>com.alibaba</groupId>

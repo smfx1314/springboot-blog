@@ -4,6 +4,8 @@ mybatis:
   type-aliases-package: com.jiangfeixiang.springbootblog.entity
   configuration:
     map-underscore-to-camel-case: true
+  mapper:
+    identity: MYSQL
 
 # 分页配置
 pagehelper:
@@ -20,31 +22,32 @@ spring:
   datasource:
     #driver-class-name: com.mysql.jdbc.Driver
     driver-class-name: com.mysql.cj.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://localhost:3306/springboot-blog?characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/springboot-blog?characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false
     name: springboot-blog
     password: 1234
     username: root
+    # 连接池配置
+    type: com.alibaba.druid.pool.DruidDataSource
+    initial-size: 1
+    max-active: 20
+    min-idle: 1
+    max-wait: 10000
+    pool-prepared-statements: true
+    max-open-prepared-statements: 20
+    validation-query: SELECT 1 FROM DUAL
+    validation-query-timeout: 5000
+    test-on-borrow: false
+    test-on-return: false
+    test-while-idle: true
+    time-between-eviction-runs-millis: 60000
+    min-evictable-idle-time-millis: 30000
+    max-evictable-idle-time-millis: 60000
+    removeAbandoned: true
+    removeAbandonedTimeout: 1800
+    connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    max-pool-prepared-statement-per-connection-size: 20
+    filters: stat,wall #filters: # 配置多个英文逗号分隔(统计，sql注入，log4j过滤)
 
-  #Redis相关配置
-  redis:
-    database: 0
-    # 配置Redis的主机地址，需要修改成自己的
-    host: 148.70.185.3
-    port: 6379
-    #密码没有为空即可
-    password:
-    timeout: 5000
-    jedis:
-      pool:
-        # 连接池中的最大空闲连接，默认值也是8。
-        max-idle: 500
-        # 连接池中的最小空闲连接，默认值也是0。
-        min-idle: 50
-        # 如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)
-        max-active: 1000
-        # 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException
-        max-wait: 2000
   #热部署
   devtools:
     remote:
@@ -79,3 +82,5 @@ spring:
     password: iecrpgqmyhvvbeec #邮件密码
     default-encoding: UTF-8
     from: 1016767658@qq.com #发送者
+
+
