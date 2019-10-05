@@ -197,7 +197,7 @@ public class AdminBlogController {
                                         @RequestParam("status") Integer status,
                                         @RequestParam("tags") String tags,
                                         @RequestParam("allowcomment") Integer allowcomment,
-                                       HttpSession session){
+                                        HttpSession session){
 
 
         BlogAndImageModel blogAndImageModel = new BlogAndImageModel();
